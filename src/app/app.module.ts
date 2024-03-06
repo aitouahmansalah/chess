@@ -14,6 +14,7 @@ import { IndexComponent } from './platform/dashboard/index/index.component';
 import { SidebarComponent } from './platform/dashboard/sidebar/sidebar.component';
 import { SigninComponent } from './platform/signin/signin.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MainComponent } from './platform/dashboard/main/main.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
     IndexComponent,
     SidebarComponent,
     SigninComponent,
+    MainComponent,
   ],
   bootstrap: [
     AppComponent,

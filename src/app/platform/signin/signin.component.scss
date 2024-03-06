@@ -1,12 +1,15 @@
 
 .container {
   box-sizing: border-box;
-  width: 100vh;
+  width: 100vw;
   height: 100vh;
   margin-top: 0px;
-  padding: 0;
+  padding-top: 3em;
+  background-color: rgb(48,46,43);
   background-image: url(../../../assets/bg/bg1.png);
-  background-size: contain;
+  background-position: 0;
+  background-size: cover;
+  
   
 }
 .social-login img {
@@ -21,7 +24,7 @@ a {
   width: 300px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 3em;
+  //margin-top: 3em;
   margin-bottom:3em;
   border-radius: 10px;
   background-color: rgb(38,36,33);
@@ -73,11 +76,11 @@ a {
   text-align: center;
   font-weight: bold;
   border-bottom: 2px solid rgb(245 239 239);
-  line-height: 0.1em;
+  //line-height: 0.1em;
   margin: 25px 0;
 }
 .or span {
-  background: #fff;
+  //background: #fff;
   padding: 0 10px;
 }
 
@@ -91,23 +94,33 @@ a {
 
 input[type="text"],
 input[type="password"] {
-  padding: 15px 20px;
+  padding: 9px 20px;
   margin-top: 8px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 2px;
   box-sizing: border-box;
 }
 
 .cta-btn {
-  background-color: rgb(69, 69, 185);
-  color: white;
-  padding: 18px 20px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  border-radius: 10px;
+  background-color: #4CAF50;
   border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 15px 0px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+  
+  font-weight: bold;
+}
+
+.cta-btn:hover{
+  background-color: #45a049;
 }
 
 .forget-pass {

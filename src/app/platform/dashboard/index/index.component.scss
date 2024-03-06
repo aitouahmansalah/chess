@@ -8,10 +8,11 @@
 }
 
 .app-sidebar {
-  flex: 0 0 auto; /* Ensure the sidebar does not grow or shrink */
+  flex: 0 0 auto;
 }
 
 .main-content {
-  //flex-grow: 1;
+  flex-grow: 1;
   padding: 20px;
 }
+
