@@ -1,0 +1,88 @@
+.main{
+  min-width: 100% ;
+}
+
+.main .top-container{
+  min-width: 100% ;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.main .top-container div{
+  padding: 10px;
+  width: 50%;
+}
+
+.main .top-container .right-container{
+  text-align: center;
+  font-size: 34px;
+  
+}
+
+
+.left-container{
+  display: flex;
+  justify-content: center;
+}
+
+.board-img{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.play-computer,
+.play-online {
+  
+  border: none;
+  color: white;
+  padding: 18px 24px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 90%;
+  margin: 5px 5%;
+  font-weight: bold;
+  text-shadow: 1px 2px 0px rgba(0,0,0,0.19);
+}
+
+.play-online{
+  background-color: rgb(129,182,76);
+}
+.play-computer{
+  background-color: #403E3C;
+}
+
+.play-online:hover{
+  background-color: rgb(161,207,95);
+}
+.play-computer:hover {
+  background-color: #403E3C;
+}
+
+button table {
+
+  text-align: left;
+}
+button table td{
+  padding: 0 15px;
+}
+
+.play-online-icon{
+  width: 55px;
+}
+.main-sentence-button{
+  font-weight: bold;
+  font-size: 30px;
+}
+.sub-sentence-button{
+  font-size: 14px;
+  font-weight: lighter;
+}
+.main-sentence{
+  font-size: 50px;
+}
