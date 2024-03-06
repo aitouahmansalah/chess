@@ -12,11 +12,14 @@ import { SquareColorPipe } from './pipes/square-color.pipe';
 import { PromoteDialogComponent } from './components/promote-dialog/promote-dialog.component';
 import { IndexComponent } from './platform/dashboard/index/index.component';
 import { SidebarComponent } from './platform/dashboard/sidebar/sidebar.component';
+import { SigninComponent } from './platform/signin/signin.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     DialogModule,
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
@@ -26,6 +29,7 @@ import { SidebarComponent } from './platform/dashboard/sidebar/sidebar.component
     PromoteDialogComponent,
     IndexComponent,
     SidebarComponent,
+    SigninComponent,
   ],
   bootstrap: [
     AppComponent,
