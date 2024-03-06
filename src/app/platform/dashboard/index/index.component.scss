@@ -1,0 +1,17 @@
+/* index.component.css */
+
+.container {
+  display: flex;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+}
+
+.app-sidebar {
+  flex: 0 0 auto; /* Ensure the sidebar does not grow or shrink */
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}

@@ -1,0 +1,98 @@
+/* sidebar.component.css */
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: rgb(38,37,34);  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  padding-top: 5px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+.user-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-details {
+  flex-grow: 1;
+}
+
+.username {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.rating {
+  font-size: 14px;
+  color: #666;
+}
+
+.sidebar-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 10px;
+}
+
+.sidebar-menu a {
+  text-decoration: none;
+  color: rgb(223,222,222);
+  font-weight: bold;
+  padding: 10px;
+  padding-left: 20px;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-menu a:hover {
+  background-color: rgb(33,31,29);
+  border-radius: 5px;
+}
+
+.sidebar-menu .sign-in,
+.sidebar-menu .sign-up {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 90%;
+  margin: 0 5%;
+  font-weight: bold;
+}
+
+.sidebar-menu .sign-up{
+  background-color: rgb(55,54,52);
+}
+
+.sidebar-menu .sign-up:hover{
+  background-color: rgb(73,72,70);
+}
+.sidebar-menu .sign-in:hover {
+  background-color: #45a049;
+}
+
