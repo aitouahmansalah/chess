@@ -14,6 +14,8 @@ import { SigninComponent } from './components/platform/signin/signin.component';
 import { GameOnlineComponent } from './components/platform/game-interface/game-online/game-online.component';
 import { MainComponent } from './components/platform/dashboard/main/main.component';
 import { GameOnlineBoardComponent } from './components/platform/game-interface/game-online/game-online-board/game-online-board.component';
+import { MilisecondeToMinutePipe } from './pipes/miliseconde-to-minute.pipe';
+
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ import { GameOnlineBoardComponent } from './components/platform/game-interface/g
     MainComponent,
     GameOnlineComponent,
     GameOnlineBoardComponent,
+    MilisecondeToMinutePipe,
   ],
   bootstrap: [
     AppComponent,

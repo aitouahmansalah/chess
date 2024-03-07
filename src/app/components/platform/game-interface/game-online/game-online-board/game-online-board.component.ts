@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pieces } from 'src/app/models/pieces.enum';
+import { ClockService } from 'src/app/services/clock.service';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -25,7 +26,12 @@ export class GameOnlineBoardComponent implements OnInit {
   
   pointsDiffrence !: number
 
-  constructor(private gameService:GameService) { }
+  wihteTime !: number
+
+  blackTime !: number  
+
+  constructor(private gameService:GameService,
+              private clockService:ClockService) { }
 
   ngOnInit(): void {
     this.gameService.piecesTakenByBlack$.subscribe(pieces => {
@@ -38,6 +44,15 @@ export class GameOnlineBoardComponent implements OnInit {
       this.calculatePointsDiffrence()
   });
     
+  this.clockService.startClocks();
+
+  this.clockService.blackTime$.subscribe(time => {
+    this.blackTime = time
+  });
+
+  this.clockService.whiteTime$.subscribe(time => {
+    this.wihteTime = time
+  });
   }
 
   calculatePointsDiffrence(){

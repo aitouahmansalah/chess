@@ -12,6 +12,7 @@ import {
 } from '../components/promote-dialog/promote-dialog.component';
 import { boardInitialPosition, squareNumber } from '../utils/board';
 import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
+import { ClockService } from './clock.service';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
@@ -61,6 +62,10 @@ export class GameService {
       .pipe(
         map(gameState => gameState.piecesTakenByWhite)
       );
+  }
+
+  getCurrentPlayer(){
+    return this.gameStateSubject.value.active
   }
 
   getPieceInSquare$(rank: number, file: number)
