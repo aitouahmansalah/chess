@@ -1,0 +1,40 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+.player-info
+{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.player-info2
+{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+.play-online-icon{
+  width: 35px;
+  height: 35px;
+  margin-right: 8px;
+}
+
+.timer{
+  font-size: 31px;
+  color: rgb(130,129,127);
+  background-color: rgb(43,41,38);
+  padding: 5px 10px 5px 50px;
+  box-sizing: border-box;
+}
+
+.player-info2 .timer{
+  font-size: 31px;
+  color: rgb(97,96,94);
+  background-color: rgb(152,151,149);
+  padding: 5px 10px 5px 50px;
+  box-sizing: border-box;
+}
+.board{
+  max-height: 60vw;
+}
