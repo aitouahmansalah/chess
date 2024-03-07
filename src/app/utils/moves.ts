@@ -447,7 +447,7 @@ export function makeMove(board: BoardMap,
                          color: Colors,
                          toMoveSquareNum: number,
                          prevSelectedSquare: { rank: number, file: number })
-  : { board: BoardMap, entry: HistoryMove } {
+  : { board: BoardMap, entry: HistoryMove, capturedPiece: Pieces | undefined } {
   const prevSquare = squareNumber(
     prevSelectedSquare.rank,
     prevSelectedSquare.file,
@@ -456,6 +456,8 @@ export function makeMove(board: BoardMap,
     .find(move => move.square === toMoveSquareNum)!;
 
   const newBoard = new Map(board);
+
+  const capturedPiece = newBoard.get(toMoveSquareNum)?.[0];
 
   newBoard.delete(prevSquare);
   newBoard.set(toMoveSquareNum, board.get(prevSquare)!);
@@ -490,7 +492,7 @@ export function makeMove(board: BoardMap,
     action,
   );
 
-  return { board: newBoard, entry };
+  return { board: newBoard, entry, capturedPiece };
 }
 
 export function promote(board: BoardMap,

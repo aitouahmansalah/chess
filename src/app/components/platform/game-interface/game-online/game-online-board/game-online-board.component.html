@@ -10,7 +10,28 @@
                 <td class="">player1</td>
               </tr>
               <tr>
-                <td class="">♔♕♗♘♙♖ +4</td>
+                <td class="">
+                  <span *ngFor="let piece of piecesTakenByBlack" [ngSwitch]="piece.toString()">
+                    <ng-container *ngSwitchCase="'Pawn'">
+                      ♙
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Queen'">
+                      ♕
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Bishop'">
+                      ♗
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Knight'">
+                      ♘
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Rook'">
+                      ♖
+                    </ng-container>
+                  </span>
+                  <span *ngIf="winnerByPoints == 'Black'">
+                    + {{ pointsDiffrence }}
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -31,7 +52,28 @@
                 <td class="">player1</td>
               </tr>
               <tr>
-                <td class="">♔♕♗♘♙♖ +4</td>
+                <td class="">
+                  <span *ngFor="let piece of piecesTakenByWhite" [ngSwitch]="piece.toString()">
+                    <ng-container *ngSwitchCase="'Pawn'">
+                      ♙
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Queen'">
+                      ♕
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Bishop'">
+                      ♗
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Knight'">
+                      ♘
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Rook'">
+                      ♖
+                    </ng-container>
+                  </span>
+                  <span *ngIf="winnerByPoints == 'White'">
+                    + {{ pointsDiffrence }}
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>

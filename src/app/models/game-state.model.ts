@@ -12,4 +12,7 @@ export interface GameState {
   availableMoves: Move[];
 
   selectedSquare?: { rank: number, file: number } | null;
+
+  piecesTakenByWhite?: Pieces[];
+  piecesTakenByBlack?: Pieces[];
 }

@@ -26,6 +26,8 @@ export class GameService {
       state: boardInitialPosition,
     }],
     availableMoves: [],
+    piecesTakenByWhite: [], 
+    piecesTakenByBlack: [],
   });
 
   constructor(private dialog: Dialog) {
@@ -45,6 +47,20 @@ export class GameService {
     : Observable<{ rank: number, file: number } | null | undefined> {
     return this.gameStateSubject.asObservable()
       .pipe(pluck('selectedSquare'));
+  }
+
+  get piecesTakenByBlack$(): Observable<(Pieces[]|undefined)> {
+    return this.gameStateSubject.asObservable()
+      .pipe(
+        map(gameState => gameState.piecesTakenByBlack)
+      );
+  }
+
+  get piecesTakenByWhite$(): Observable<(Pieces[]|undefined)> {
+    return this.gameStateSubject.asObservable()
+      .pipe(
+        map(gameState => gameState.piecesTakenByWhite)
+      );
   }
 
   getPieceInSquare$(rank: number, file: number)
@@ -107,7 +123,7 @@ export class GameService {
           });
       }
 
-      const { board: newBoard, entry } = makeMove(
+      const { board: newBoard, entry, capturedPiece } = makeMove(
         board,
         availableMoves,
         history,
@@ -118,6 +134,13 @@ export class GameService {
       board = newBoard;
       history = [...history, entry];
       active = active === Colors.White ? Colors.Black : Colors.White;
+
+        if(active === Colors.Black && capturedPiece)
+          this.gameStateSubject.value.piecesTakenByWhite?.push(capturedPiece)
+        if(active === Colors.White && capturedPiece)
+          this.gameStateSubject.value.piecesTakenByBlack?.push(capturedPiece)
+  
+
       availableMoves = [];
       selectedSquare = null;
     } else if (board.get(squareNum)?.[1] === active) {
@@ -134,7 +157,10 @@ export class GameService {
       history,
       availableMoves,
       selectedSquare,
+      piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
+      piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     });
+    console.log(this.gameStateSubject.value);
   }
 
   private checkIsPawnPromoting(board: BoardMap,
