@@ -36,7 +36,7 @@
             </tbody>
           </table>
         </div>
-        <div class="timer">
+        <div [ngClass]="{ 'timerActive': activeColor === 'Black', 'timer': activeColor === 'White' }">
           {{ blackTime | MilisecondeToMinutePipe }}
         </div>
       </td></tr>
@@ -78,7 +78,7 @@
             </tbody>
           </table>
         </div>
-        <div class="timer">
+        <div [ngClass]="{ 'timerActive': activeColor === 'White', 'timer': activeColor === 'Black' }">
           {{ wihteTime | MilisecondeToMinutePipe }}
         </div>
       </td></tr>

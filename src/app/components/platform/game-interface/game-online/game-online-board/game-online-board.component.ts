@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Colors } from 'src/app/models/colors.enum';
 import { Pieces } from 'src/app/models/pieces.enum';
 import { ClockService } from 'src/app/services/clock.service';
 import { GameService } from 'src/app/services/game.service';
@@ -30,6 +31,8 @@ export class GameOnlineBoardComponent implements OnInit {
 
   blackTime !: number  
 
+  activeColor !: Colors
+
   constructor(private gameService:GameService,
               private clockService:ClockService) { }
 
@@ -53,6 +56,10 @@ export class GameOnlineBoardComponent implements OnInit {
   this.clockService.whiteTime$.subscribe(time => {
     this.wihteTime = time
   });
+
+  this.gameService.activeColor$.subscribe(activeColor =>{
+    this.activeColor = activeColor
+  })
   }
 
   calculatePointsDiffrence(){

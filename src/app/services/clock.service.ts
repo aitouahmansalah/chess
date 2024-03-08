@@ -33,7 +33,6 @@ export class ClockService {
           this.whiteTimeSubject.next(this.whiteTimeSubject.value - 1000);
         if(currentPlayer == Colors.Black)  
           this.blackTimeSubject.next(this.blackTimeSubject.value - 1000);
-          console.log(this.blackTimeSubject.value)
       });
       
   }
