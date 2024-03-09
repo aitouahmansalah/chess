@@ -17,13 +17,17 @@ import { GameOnlineBoardComponent } from './components/platform/game-interface/g
 import { MilisecondeToMinutePipe } from './pipes/miliseconde-to-minute.pipe';
 import { OnlineSquareComponent } from './components/online-square/online-square.component';
 import { OnlineBoardComponent } from './components/online-board/online-board.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
     BrowserModule,
     DialogModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+
   ],
   declarations: [
     AppComponent,
@@ -35,11 +39,11 @@ import { OnlineBoardComponent } from './components/online-board/online-board.com
     SidebarComponent,
     SigninComponent,
     MainComponent,
-    GameOnlineComponent,
     GameOnlineBoardComponent,
     MilisecondeToMinutePipe,
     OnlineSquareComponent,
     OnlineBoardComponent,
+    GameOnlineComponent,
   ],
   bootstrap: [
     AppComponent,

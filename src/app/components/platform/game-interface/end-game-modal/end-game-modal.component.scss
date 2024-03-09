@@ -1,0 +1,76 @@
+
+.container
+{
+  text-align: center;
+  color: white;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  
+}
+.container div{
+  width: 100%;
+  flex-grow: 1;
+
+}
+.container .top{
+  background-color: rgb(30,29,26);
+  margin: 0;
+  padding: 25px 0;
+  
+}
+.container .top h3, h1{
+  margin: 0;
+}
+.container .bottom{
+  background-color: rgb(38,36,33);
+}
+.bottom table{
+  width: 100%;
+  padding: 20px 15px;
+  min-height: 100%;
+}
+.bottom button{
+  width: 100%;
+}
+.bottom .btn1{
+  border: none;
+  color: white;
+  padding: 18px 24px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  background-color: rgb(129,182,76);
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+  text-shadow: 1px 2px 0px rgba(0,0,0,0.19);
+}
+
+.btn2, .btn3
+{
+  border: none;
+  color: white;
+  padding: 12px 19px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  background-color: #403E3C;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+  text-shadow: 1px 2px 0px rgba(0,0,0,0.19);
+}
+.close{
+  
+  width: 100%;
+  text-align: right;
+  top: 0;
+  left: 150px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+}

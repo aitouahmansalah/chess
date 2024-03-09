@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GameOnlineComponent } from './game-online.component';
+import { EndGameModalComponent } from './end-game-modal.component';
 
-describe('GameOnlineComponent', () => {
-  let component: GameOnlineComponent;
-  let fixture: ComponentFixture<GameOnlineComponent>;
+describe('EndGameModalComponent', () => {
+  let component: EndGameModalComponent;
+  let fixture: ComponentFixture<EndGameModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameOnlineComponent ],
+      declarations: [ EndGameModalComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GameOnlineComponent);
+    fixture = TestBed.createComponent(EndGameModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

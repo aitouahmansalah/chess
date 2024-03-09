@@ -13,3 +13,13 @@ body {
   font-family: 'Rubik', sans-serif;
   background-color: main.$bg;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.dialog .mat-dialog-container{
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  
+}
