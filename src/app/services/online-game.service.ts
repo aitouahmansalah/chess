@@ -13,9 +13,13 @@ import {
 import { boardInitialPosition, squareNumber } from '../utils/board';
 import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
 
+@Injectable({
+  providedIn: 'root'
+})
+export class OnlineGameService {
 
-@Injectable({ providedIn: 'root' })
-export class GameService {
+  playerColor !: Colors;
+
   private gameStateSubject = new BehaviorSubject<GameState>({
     board: boardInitialPosition,
     active: Colors.White,
@@ -32,6 +36,7 @@ export class GameService {
   });
 
   constructor(private dialog: Dialog) {
+    this.playerColor = Colors.White;
   }
 
   get activeColor$(): Observable<Colors> {
@@ -175,4 +180,5 @@ export class GameService {
       || (toSelectSquareNum >= 57 && toSelectSquareNum <= 64))
       && board.get(selectedSquareNum)?.[0] === Pieces.Pawn;
   }
+
 }

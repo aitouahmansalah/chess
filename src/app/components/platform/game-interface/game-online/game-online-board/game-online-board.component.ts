@@ -3,6 +3,7 @@ import { Colors } from 'src/app/models/colors.enum';
 import { Pieces } from 'src/app/models/pieces.enum';
 import { ClockService } from 'src/app/services/clock.service';
 import { GameService } from 'src/app/services/game.service';
+import { OnlineGameService } from 'src/app/services/online-game.service';
 
 @Component({
   selector: 'jv-game-online-board',
@@ -33,7 +34,7 @@ export class GameOnlineBoardComponent implements OnInit {
 
   activeColor !: Colors
 
-  constructor(private gameService:GameService,
+  constructor(private gameService:OnlineGameService,
               private clockService:ClockService) { }
 
   ngOnInit(): void {
@@ -47,7 +48,7 @@ export class GameOnlineBoardComponent implements OnInit {
       this.calculatePointsDiffrence()
   });
     
-  this.clockService.startClocks();
+  this.clockService.startClocksOnline();
 
   this.clockService.blackTime$.subscribe(time => {
     this.blackTime = time
@@ -59,6 +60,7 @@ export class GameOnlineBoardComponent implements OnInit {
 
   this.gameService.activeColor$.subscribe(activeColor =>{
     this.activeColor = activeColor
+    console.log(this.activeColor)
   })
   }
 
