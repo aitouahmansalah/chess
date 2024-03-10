@@ -18,7 +18,9 @@ import { MilisecondeToMinutePipe } from './pipes/miliseconde-to-minute.pipe';
 import { OnlineSquareComponent } from './components/online-square/online-square.component';
 import { OnlineBoardComponent } from './components/online-board/online-board.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatTabsModule} from '@angular/material/tabs';
+import { TabsPanelComponent } from './components/platform/game-interface/tabs-panel/tabs-panel.component';
 
 @NgModule({
   imports: [
@@ -27,6 +29,8 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, Ma
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatTabsModule,
+    TabsPanelComponent,
 
   ],
   declarations: [
