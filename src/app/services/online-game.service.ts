@@ -45,7 +45,7 @@ export class OnlineGameService {
        this.gameStarted.next(true) ;
        this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
     });
-    
+
     this.socket.onGameStateUpdate().subscribe(gameState => {
       const boardEntries: [number, [Pieces, Colors]][] = Object.entries(gameState.boardObject)
         .map(([key, value]): [number, [Pieces, Colors]] => [parseInt(key), value as [Pieces, Colors]]);
@@ -151,7 +151,17 @@ export class OnlineGameService {
               availableMoves: [],
               selectedSquare: null,
             });
+
+            this.socket.emitGameState({
+              board: newBoard,
+              active,
+              history: [...history, entry],
+              availableMoves: [],
+              selectedSquare: null,
+            });
           });
+
+          
       }
 
       const { board: newBoard, entry, capturedPiece } = makeMove(
