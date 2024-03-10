@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
 import { Colors } from 'src/app/models/colors.enum';
 import { Pieces } from 'src/app/models/pieces.enum';
@@ -11,13 +12,12 @@ import { OnlineGameService } from 'src/app/services/online-game.service';
   styleUrls: ['./game-online-board.component.scss'],
 })
 export class GameOnlineBoardComponent implements OnInit {
-
   pieceValues: { [key: string]: number } = {
     'Pawn': 1,
     'Knight': 3,
     'Bishop': 3,
     'Rook': 5,
-    'Queen': 9
+    'Queen': 9,
   };
 
   piecesTakenByWhite !: Pieces[] | undefined
@@ -61,9 +61,7 @@ export class GameOnlineBoardComponent implements OnInit {
     this.opisatePlayerColor = this.playerColor == Colors.Black ? Colors.White : Colors.Black;
     this.playeIsWhite = this.playerColor == Colors.White;  
   }
-  })
-  
-
+  })  
   this.clockService.blackTime$.subscribe(time => {
     this.blackTime = time
   });
