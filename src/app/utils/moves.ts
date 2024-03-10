@@ -294,38 +294,41 @@ function calculateKingMoves(board: BoardMap,
   const inBetweenShortSquareNums = isWhite ? [62, 63] : [6, 7];
   const inBetweenLongSquareNums = isWhite ? [58, 59, 60] : [2, 3, 4];
 
-  const canShortCastle = inBetweenShortSquareNums.every(b => !board.get(b))
-    && history.every(entry => {
-      const kingSquareNum = isWhite ? 61 : 5;
-      const rookSquareNum = isWhite ? 64 : 8;
+  // const canShortCastle = inBetweenShortSquareNums.every(b => !board.get(b))
+  //   && history.every(entry => {
+  //     const kingSquareNum = isWhite ? 61 : 5;
+  //     const rookSquareNum = isWhite ? 64 : 8;
+  //     console.log(entry.state);
+  //     const supposedKingSquare = entry.state.get(kingSquareNum);
+  //     const kingOk = !!supposedKingSquare
+  //       && supposedKingSquare[0] === Pieces.King
+  //       && supposedKingSquare[1] === color;
+  //     const supposedRookSquare = entry.state.get(rookSquareNum);
+  //     const rookOk = !!supposedRookSquare
+  //       && supposedRookSquare[0] === Pieces.Rook
+  //       && supposedRookSquare[1] === color;
 
-      const supposedKingSquare = entry.state.get(kingSquareNum);
-      const kingOk = !!supposedKingSquare
-        && supposedKingSquare[0] === Pieces.King
-        && supposedKingSquare[1] === color;
-      const supposedRookSquare = entry.state.get(rookSquareNum);
-      const rookOk = !!supposedRookSquare
-        && supposedRookSquare[0] === Pieces.Rook
-        && supposedRookSquare[1] === color;
+  //     return kingOk && rookOk;
+  //   });
+  // const canLongCastle = inBetweenLongSquareNums.every(b => !board.get(b))
+  //   && history.every(entry => {
+  //   const kingSquareNum = isWhite ? 61 : 5;
+  //   const rookSquareNum = isWhite ? 57 : 1;
 
-      return kingOk && rookOk;
-    });
-  const canLongCastle = inBetweenLongSquareNums.every(b => !board.get(b))
-    && history.every(entry => {
-    const kingSquareNum = isWhite ? 61 : 5;
-    const rookSquareNum = isWhite ? 57 : 1;
+  //   const supposedKingSquare = entry.state.get(kingSquareNum);
+  //   const kingOk = !!supposedKingSquare
+  //     && supposedKingSquare[0] === Pieces.King
+  //     && supposedKingSquare[1] === color;
+  //   const supposedRookSquare = entry.state.get(rookSquareNum);
+  //   const rookOk = !!supposedRookSquare
+  //     && supposedRookSquare[0] === Pieces.Rook
+  //     && supposedRookSquare[1] === color;
 
-    const supposedKingSquare = entry.state.get(kingSquareNum);
-    const kingOk = !!supposedKingSquare
-      && supposedKingSquare[0] === Pieces.King
-      && supposedKingSquare[1] === color;
-    const supposedRookSquare = entry.state.get(rookSquareNum);
-    const rookOk = !!supposedRookSquare
-      && supposedRookSquare[0] === Pieces.Rook
-      && supposedRookSquare[1] === color;
+  //   return kingOk && rookOk;
+  // });
 
-    return kingOk && rookOk;
-  });
+  const canLongCastle = false;
+  const canShortCastle = false;
 
   if (canShortCastle) {
     moves.push({

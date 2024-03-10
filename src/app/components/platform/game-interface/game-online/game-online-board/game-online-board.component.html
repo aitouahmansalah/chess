@@ -11,7 +11,7 @@
               </tr>
               <tr>
                 <td class="">
-                 <span *ngIf=" playeIsWhite"> <span  *ngFor="let piece of piecesTakenByBlack" [ngSwitch]="piece.toString()">
+                 <span *ngIf="playeIsWhite"> <span  *ngFor="let piece of piecesTakenByBlack" [ngSwitch]="piece.toString()">
                     <ng-container *ngSwitchCase="'Pawn'">
                       ♙
                     </ng-container>
