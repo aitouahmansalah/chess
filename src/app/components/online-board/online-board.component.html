@@ -1,9 +1,9 @@
-<div class="board">
+<div class="board" [ngClass]="{ 'flipped': playerColor === 'Black' }">
     <ng-container *ngFor="let rank of boardDirectionArray">
       <ng-container *ngFor="let file of boardDirectionArray">
-  
-        <jv-online-square [rank]="rank" [file]="file"></jv-online-square>
-  
+        <div class="square" [ngClass]="{ 'rotate': playerColor === 'Black' }">
+          <jv-online-square [rank]="rank" [file]="file"></jv-online-square>
+        </div>
       </ng-container>
     </ng-container>
   </div>

@@ -1,5 +1,10 @@
 .board {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-  }
-  
+  /*  &.flipped {
+      transform: rotate(180deg);
+    }*/
+}
+/*.rotate {
+  transform: rotate(180deg);
+}*/

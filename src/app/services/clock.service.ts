@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { GameService } from './game.service';
 import { Colors } from '../models/colors.enum';
 import { OnlineGameService } from './online-game.service';
+import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class ClockService {
   public blackTime$: Observable<number> = this.blackTimeSubject.asObservable();
 
   constructor(private gameSerivce:GameService,
-              private onlineGameService:OnlineGameService) {
-    this.interval$ = interval(1000); // Update every second
+              private onlineGameService:OnlineGameService,
+              private socket:SocketService) {
+    this.interval$ = interval(1000); 
   }
 
   startClocks(): void {
@@ -36,22 +38,38 @@ export class ClockService {
         if(currentPlayer == Colors.Black)  
           this.blackTimeSubject.next(this.blackTimeSubject.value - 1000);
       });
+     
+      if(this.whiteTimeSubject.value == 0 || this.blackTimeSubject.value == 0)
+      this.destroy$.next();
       
   }
 
   startClocksOnline(): void {
     this.whiteTimeSubject.next(600000);
     this.blackTimeSubject.next(600000);
-
+   if(this.onlineGameService.playerColor == Colors.White){
     this.interval$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
+        
         let currentPlayer = this.onlineGameService.getCurrentPlayer()
         if(currentPlayer == Colors.White)
           this.whiteTimeSubject.next(this.whiteTimeSubject.value - 1000);
         if(currentPlayer == Colors.Black)  
           this.blackTimeSubject.next(this.blackTimeSubject.value - 1000);
-      });
+
+        this.socket.emitTime(this.whiteTimeSubject.value,this.blackTimeSubject.value);  
+          
+        if(this.whiteTimeSubject.value == 0 || this.blackTimeSubject.value == 0)
+          this.destroy$.next();  
+
+      });}
+      else{
+        this.socket.onTime().subscribe(time =>{
+          this.whiteTimeSubject.next(time.whiteTime);
+          this.blackTimeSubject.next(time.blackTime);
+        })
+      }
   }
 
   pauseClocks(): void {

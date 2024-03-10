@@ -7,11 +7,11 @@
             <tbody>
               <tr>
                 <td rowspan="2"><img src="../../../../../../assets/profile/profile.png" alt="" class="play-online-icon"></td>
-                <td class="">player1</td>
+                <td class="">player {{opisatePlayerColor}}</td>
               </tr>
               <tr>
                 <td class="">
-                  <span *ngFor="let piece of piecesTakenByBlack" [ngSwitch]="piece.toString()">
+                 <span *ngIf=" playeIsWhite"> <span  *ngFor="let piece of piecesTakenByBlack" [ngSwitch]="piece.toString()">
                     <ng-container *ngSwitchCase="'Pawn'">
                       ♙
                     </ng-container>
@@ -27,8 +27,26 @@
                     <ng-container *ngSwitchCase="'Rook'">
                       ♖
                     </ng-container>
-                  </span>
-                  <span *ngIf="winnerByPoints == 'Black'">
+                  </span></span>
+
+                  <span *ngIf="!playeIsWhite"><span *ngFor="let piece of piecesTakenByWhite" [ngSwitch]="piece.toString()">
+                    <ng-container *ngSwitchCase="'Pawn'">
+                      ♙
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Queen'">
+                      ♕
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Bishop'">
+                      ♗
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Knight'">
+                      ♘
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Rook'">
+                      ♖
+                    </ng-container>
+                  </span></span>
+                  <span *ngIf="winnerByPoints == opisatePlayerColor.toString()">
                     + {{ pointsDiffrence }}
                   </span>
                 </td>
@@ -36,8 +54,13 @@
             </tbody>
           </table>
         </div>
-        <div [ngClass]="{ 'timerActive': activeColor === 'Black', 'timer': activeColor === 'White' }">
-          {{ blackTime | MilisecondeToMinutePipe }}
+        <div [ngClass]="{ 'timerActive': activeColor === opisatePlayerColor.toString() , 'timer': activeColor === playerColor.toString() }">
+          <div *ngIf="playeIsWhite">
+            {{ blackTime | MilisecondeToMinutePipe }}
+          </div>
+          <div *ngIf="!playeIsWhite">
+            {{ wihteTime | MilisecondeToMinutePipe }}
+          </div>
         </div>
       </td></tr>
 
@@ -49,11 +72,11 @@
             <tbody>
               <tr>
                 <td rowspan="2"><img src="../../../../../../assets/profile/profile.png" alt="" class="play-online-icon"></td>
-                <td class="">player1</td>
+                <td class="">player {{ playerColor}}</td>
               </tr>
               <tr>
                 <td class="">
-                  <span *ngFor="let piece of piecesTakenByWhite" [ngSwitch]="piece.toString()">
+                  <span *ngIf=" !playeIsWhite"> <span  *ngFor="let piece of piecesTakenByBlack" [ngSwitch]="piece.toString()">
                     <ng-container *ngSwitchCase="'Pawn'">
                       ♙
                     </ng-container>
@@ -69,8 +92,26 @@
                     <ng-container *ngSwitchCase="'Rook'">
                       ♖
                     </ng-container>
-                  </span>
-                  <span *ngIf="winnerByPoints == 'White'">
+                  </span></span>
+
+                  <span *ngIf=" playeIsWhite"><span *ngFor="let piece of piecesTakenByWhite" [ngSwitch]="piece.toString()">
+                    <ng-container *ngSwitchCase="'Pawn'">
+                      ♙
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Queen'">
+                      ♕
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Bishop'">
+                      ♗
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Knight'">
+                      ♘
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Rook'">
+                      ♖
+                    </ng-container>
+                  </span></span>
+                  <span *ngIf="winnerByPoints == playerColor.toString()">
                     + {{ pointsDiffrence }}
                   </span>
                 </td>
@@ -78,8 +119,13 @@
             </tbody>
           </table>
         </div>
-        <div [ngClass]="{ 'timerActive': activeColor === 'White', 'timer': activeColor === 'Black' }">
-          {{ wihteTime | MilisecondeToMinutePipe }}
+        <div [ngClass]="{ 'timerActive': activeColor === playerColor.toString() , 'timer': activeColor === opisatePlayerColor.toString() }">
+          <div *ngIf="!playeIsWhite">
+            {{ blackTime | MilisecondeToMinutePipe }}
+          </div>
+          <div *ngIf="playeIsWhite">
+            {{ wihteTime | MilisecondeToMinutePipe }}
+          </div>
         </div>
       </td></tr>
     </tbody>

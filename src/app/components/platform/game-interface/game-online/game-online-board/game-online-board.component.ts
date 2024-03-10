@@ -34,6 +34,12 @@ export class GameOnlineBoardComponent implements OnInit {
 
   activeColor !: Colors
 
+  playerColor !: Colors
+
+  opisatePlayerColor !: Colors;
+
+  playeIsWhite !: boolean
+
   constructor(private gameService:OnlineGameService,
               private clockService:ClockService) { }
 
@@ -48,7 +54,15 @@ export class GameOnlineBoardComponent implements OnInit {
       this.calculatePointsDiffrence()
   });
     
-  this.clockService.startClocksOnline();
+  this.gameService.gameStarted.subscribe(started =>{
+    if (started){
+    this.clockService.startClocksOnline();
+    this.playerColor = this.gameService.playerColor; 
+    this.opisatePlayerColor = this.playerColor == Colors.Black ? Colors.White : Colors.Black;
+    this.playeIsWhite = this.playerColor == Colors.White;  
+  }
+  })
+  
 
   this.clockService.blackTime$.subscribe(time => {
     this.blackTime = time

@@ -12,11 +12,15 @@ import {
 } from '../components/promote-dialog/promote-dialog.component';
 import { boardInitialPosition, squareNumber } from '../utils/board';
 import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
+import { SocketService } from './socket.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OnlineGameService {
+
+  gameStarted : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
 
   playerColor !: Colors;
 
@@ -35,8 +39,25 @@ export class OnlineGameService {
     piecesTakenByBlack: [],
   });
 
-  constructor(private dialog: Dialog) {
-    this.playerColor = Colors.White;
+  constructor(private dialog: Dialog,private socket:SocketService) {
+
+    this.socket.onjoinedRoom().subscribe(obj =>{
+       this.gameStarted.next(true) ;
+       this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
+    });
+    
+    this.socket.onGameStateUpdate().subscribe(gameState => {
+      const boardEntries: [number, [Pieces, Colors]][] = Object.entries(gameState.boardObject)
+        .map(([key, value]): [number, [Pieces, Colors]] => [parseInt(key), value as [Pieces, Colors]]);
+      const board = new Map(boardEntries);
+      const updatedGameState = { ...gameState.gameState, board };
+      this.gameStateSubject.next(updatedGameState);
+      console.log(updatedGameState);
+    });
+    
+    this.socket.onboard().subscribe(s =>{
+      console.log(s);
+    })
   }
 
   get activeColor$(): Observable<Colors> {
@@ -170,7 +191,17 @@ export class OnlineGameService {
       piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     });
-    console.log(this.gameStateSubject.value);
+    this.socket.emitGameState({
+      board,
+      active,
+      history,
+      availableMoves,
+      selectedSquare,
+      piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
+      piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
+    }); 
+   // this.socket.emitBoard(board)
+    
   }
 
   private checkIsPawnPromoting(board: BoardMap,
