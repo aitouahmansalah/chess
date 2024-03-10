@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import { TabsPanelComponent } from './components/platform/game-interface/tabs-panel/tabs-panel.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -31,7 +32,7 @@ import { TabsPanelComponent } from './components/platform/game-interface/tabs-pa
     MatDialogModule,
     MatTabsModule,
     TabsPanelComponent,
-
+    MatIconModule,
   ],
   declarations: [
     AppComponent,
