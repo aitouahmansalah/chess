@@ -27,6 +27,7 @@
                     <ng-container *ngSwitchCase="'Rook'">
                       ♖
                     </ng-container>
+<<<<<<< HEAD
                   </span></span>
 
                   <span *ngIf="!playeIsWhite"><span *ngFor="let piece of piecesTakenByWhite" [ngSwitch]="piece.toString()">
@@ -47,6 +48,10 @@
                     </ng-container>
                   </span></span>
                   <span *ngIf="winnerByPoints == opisatePlayerColor.toString()">
+=======
+                  </span>
+                  <span *ngIf="winnerByPoints === 'Black'">
+>>>>>>> frontEnd
                     + {{ pointsDiffrence }}
                   </span>
                 </td>
@@ -92,6 +97,7 @@
                     <ng-container *ngSwitchCase="'Rook'">
                       ♖
                     </ng-container>
+<<<<<<< HEAD
                   </span></span>
 
                   <span *ngIf=" playeIsWhite"><span *ngFor="let piece of piecesTakenByWhite" [ngSwitch]="piece.toString()">
@@ -112,6 +118,10 @@
                     </ng-container>
                   </span></span>
                   <span *ngIf="winnerByPoints == playerColor.toString()">
+=======
+                  </span>
+                  <span *ngIf="winnerByPoints === 'White'">
+>>>>>>> frontEnd
                     + {{ pointsDiffrence }}
                   </span>
                 </td>
