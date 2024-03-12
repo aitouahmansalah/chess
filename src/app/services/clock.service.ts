@@ -13,6 +13,8 @@ export class ClockService {
   private interval$: Observable<number>;
   private destroy$ = new Subject<void>();
 
+  private gameEnded:boolean = false;
+
   private whiteTimeSubject = new BehaviorSubject<number>(0);
   private blackTimeSubject = new BehaviorSubject<number>(0);
 
@@ -23,6 +25,9 @@ export class ClockService {
               private onlineGameService:OnlineGameService,
               private socket:SocketService) {
     this.interval$ = interval(1000); 
+    this.onlineGameService.gameEnded.subscribe(ended =>{
+      this.gameEnded = ended;
+    })
   }
 
   startClocks(): void {
@@ -51,6 +56,9 @@ export class ClockService {
     this.interval$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
+
+        if(this.gameEnded)
+        this.pauseClocks();
         
         let currentPlayer = this.onlineGameService.getCurrentPlayer()
         if(currentPlayer == Colors.White)
@@ -60,9 +68,9 @@ export class ClockService {
 
         this.socket.emitTime(this.whiteTimeSubject.value,this.blackTimeSubject.value);  
           
-        if(this.whiteTimeSubject.value == 0 || this.blackTimeSubject.value == 0)
-          this.destroy$.next();  
-
+        if(this.whiteTimeSubject.value <= 0 || this.blackTimeSubject.value <= 0){
+          this.pauseClocks();  
+          this.onlineGameService.endgame('time out');}
       });}
       else{
         this.socket.onTime().subscribe(time =>{
@@ -70,6 +78,7 @@ export class ClockService {
           this.blackTimeSubject.next(time.blackTime);
         })
       }
+      
   }
 
   pauseClocks(): void {

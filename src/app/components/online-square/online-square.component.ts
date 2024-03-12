@@ -25,6 +25,7 @@ export class OnlineSquareComponent implements OnInit {
   squareAction!: MoveActions | undefined;
   playerColor !: Colors;
   gameStarted:boolean = false;
+  gameEnded:boolean = false;
 
   readonly moveActionsEnum = MoveActions;
 
@@ -36,6 +37,10 @@ export class OnlineSquareComponent implements OnInit {
         this.gameStarted = started;
         this.playerColor = this.gameService.playerColor;
     });
+
+    this.gameService.gameEnded.subscribe(ended =>{
+      this.gameEnded = ended;
+    })
     
     const piece$ = this.gameService.getPieceInSquare$(this.rank, this.file)
       .pipe(shareReplay());
@@ -73,7 +78,7 @@ export class OnlineSquareComponent implements OnInit {
   }
 
   get isSelectable(): boolean {
-    return (this.isActive || !!this.squareAction ) && this.gameStarted;
+    return (this.isActive || !!this.squareAction ) && this.gameStarted && !this.gameEnded;
   }
 
   get imgSrc(): string | null {
@@ -109,7 +114,7 @@ export class OnlineSquareComponent implements OnInit {
   }
 
   onSquareClick(): void {
-    if(this.square?.[1] == this.playerColor || this.squareAction)
+    if(this.square?.[1] == this.playerColor || this.squareAction || !this.gameEnded)
     this.gameService.selectSquare(this.rank, this.file);
   }
 

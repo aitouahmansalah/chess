@@ -15,4 +15,5 @@ export interface GameState {
 
   piecesTakenByWhite?: Pieces[];
   piecesTakenByBlack?: Pieces[];
+  winner?:Colors;
 }

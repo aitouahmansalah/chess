@@ -10,9 +10,10 @@ import { Move, MoveActions } from '../models/move.model';
 import {
   PromoteDialogComponent,
 } from '../components/promote-dialog/promote-dialog.component';
-import { boardInitialPosition, squareNumber } from '../utils/board';
+import { boardInitialPosition, rankAndFile, squareNumber } from '../utils/board';
 import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
 import { SocketService } from './socket.service';
+import { EndgameDialogComponent } from '../components/endgame-dialog/endgame-dialog.component';
 
 
 @Injectable({
@@ -21,6 +22,8 @@ import { SocketService } from './socket.service';
 export class OnlineGameService {
 
   gameStarted : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
+
+  gameEnded : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
 
   playerColor !: Colors;
 
@@ -210,9 +213,9 @@ export class OnlineGameService {
       piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     }); 
-   // this.socket.emitBoard(board)
-    
-  }
+      
+   this.isCheckmate()
+  } 
 
   private checkIsPawnPromoting(board: BoardMap,
                                selectedSquareNum: number,
@@ -221,5 +224,39 @@ export class OnlineGameService {
       || (toSelectSquareNum >= 57 && toSelectSquareNum <= 64))
       && board.get(selectedSquareNum)?.[0] === Pieces.Pawn;
   }
+
+  endgame(winnerBy:string){
+    const winner = this.gameStateSubject.value.active == Colors.Black ? Colors.White : Colors.Black
+    const game = {...this.gameStateSubject.value,winner} 
+    this.gameStateSubject.next(game);
+    this.gameEnded.next(true);
+    this.dialog.open(EndgameDialogComponent,{
+      data: {
+        winner,
+        winnerBy
+      },
+    })
+  }
+
+  isCheckmate() {
+    const {
+      board,
+      active,
+      history,
+    } = this.gameStateSubject.value;
+  
+    for (const [key, [piece, color]] of board.entries()) {
+      if (color === active) {
+        const { rank, file } = rankAndFile(key)!;
+        const legalMoves = calculateLegalMoves(board, history, rank, file);
+        if (legalMoves.length > 0) {
+          return  
+        }
+      }
+    }
+    console.log('checkmate');
+    this.endgame('checkmate');
+  }
+  
 
 }
