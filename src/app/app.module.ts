@@ -20,7 +20,6 @@ import { OnlineBoardComponent } from './components/online-board/online-board.com
 import { EndgameDialogComponent } from './components/endgame-dialog/endgame-dialog.component';
 import { InitialiseDialogComponent } from './components/initialise-dialog/initialise-dialog.component';
 
-
 @NgModule({
   imports: [
     BrowserModule,
