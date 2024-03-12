@@ -18,6 +18,7 @@ import { MilisecondeToMinutePipe } from './pipes/miliseconde-to-minute.pipe';
 import { OnlineSquareComponent } from './components/online-square/online-square.component';
 import { OnlineBoardComponent } from './components/online-board/online-board.component';
 import { EndgameDialogComponent } from './components/endgame-dialog/endgame-dialog.component';
+import { InitialiseDialogComponent } from './components/initialise-dialog/initialise-dialog.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { EndgameDialogComponent } from './components/endgame-dialog/endgame-dial
     OnlineSquareComponent,
     OnlineBoardComponent,
     EndgameDialogComponent,
+    InitialiseDialogComponent,
   ],
   bootstrap: [
     AppComponent,
