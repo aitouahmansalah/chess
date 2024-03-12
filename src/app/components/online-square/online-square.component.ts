@@ -114,7 +114,7 @@ export class OnlineSquareComponent implements OnInit {
   }
 
   onSquareClick(): void {
-    if(this.square?.[1] == this.playerColor || this.squareAction || !this.gameEnded)
+    if((this.square?.[1] == this.playerColor || this.squareAction) && !this.gameEnded)
     this.gameService.selectSquare(this.rank, this.file);
   }
 
