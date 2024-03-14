@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
 import { Colors } from 'src/app/models/colors.enum';
 import { Pieces } from 'src/app/models/pieces.enum';

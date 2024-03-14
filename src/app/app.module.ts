@@ -19,6 +19,7 @@ import { OnlineSquareComponent } from './components/online-square/online-square.
 import { OnlineBoardComponent } from './components/online-board/online-board.component';
 import { EndgameDialogComponent } from './components/endgame-dialog/endgame-dialog.component';
 import { InitialiseDialogComponent } from './components/initialise-dialog/initialise-dialog.component';
+import { PanelTabsComponent } from './components/platform/game-interface/panel-tabs/panel-tabs.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { InitialiseDialogComponent } from './components/initialise-dialog/initia
     OnlineBoardComponent,
     EndgameDialogComponent,
     InitialiseDialogComponent,
+    PanelTabsComponent,
   ],
   bootstrap: [
     AppComponent,
