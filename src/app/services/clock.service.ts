@@ -62,9 +62,9 @@ export class ClockService {
         
         let currentPlayer = this.onlineGameService.getCurrentPlayer()
         if(currentPlayer == Colors.White)
-          this.whiteTimeSubject.next(this.whiteTimeSubject.value - 1000);
+          this.whiteTimeSubject.next(this.whiteTimeSubject.value - 500);
         if(currentPlayer == Colors.Black)  
-          this.blackTimeSubject.next(this.blackTimeSubject.value - 1000);
+          this.blackTimeSubject.next(this.blackTimeSubject.value - 500);
 
         this.socket.emitTime(this.whiteTimeSubject.value,this.blackTimeSubject.value);  
           

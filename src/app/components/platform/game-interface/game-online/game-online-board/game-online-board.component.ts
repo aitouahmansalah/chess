@@ -75,7 +75,7 @@ export class GameOnlineBoardComponent implements OnInit {
 
   this.gameService.activeColor$.subscribe(activeColor =>{
     this.activeColor = activeColor
-    console.log(this.activeColor)
+    
   })
   }
 

@@ -56,11 +56,14 @@ export class OnlineGameService {
       const updatedGameState = { ...gameState.gameState, board };
       this.gameStateSubject.next(updatedGameState);
       console.log(updatedGameState);
+      if(updatedGameState.gameEnded) {this.gameended();console.log("test11")};
     });
     
     this.socket.onboard().subscribe(s =>{
       console.log(s);
     })
+
+  
   }
 
   get activeColor$(): Observable<Colors> {
@@ -90,6 +93,13 @@ export class OnlineGameService {
     return this.gameStateSubject.asObservable()
       .pipe(
         map(gameState => gameState.piecesTakenByWhite)
+      );
+  }
+
+  get gameEnded$(): Observable<(boolean|undefined)> {
+    return this.gameStateSubject.asObservable()
+      .pipe(
+        map(gameState => gameState.gameEnded)
       );
   }
 
@@ -183,6 +193,8 @@ export class OnlineGameService {
           this.gameStateSubject.value.piecesTakenByWhite?.push(capturedPiece)
         if(active === Colors.White && capturedPiece)
           this.gameStateSubject.value.piecesTakenByBlack?.push(capturedPiece)
+
+          
   
 
       availableMoves = [];
@@ -190,9 +202,11 @@ export class OnlineGameService {
     } else if (board.get(squareNum)?.[1] === active) {
       selectedSquare = { rank, file };
       availableMoves = calculateLegalMoves(board, history, rank, file);
+     
     } else {
       selectedSquare = null;
       availableMoves = [];
+      
     }
 
     this.gameStateSubject.next({
@@ -204,6 +218,7 @@ export class OnlineGameService {
       piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     });
+  
     this.socket.emitGameState({
       board,
       active,
@@ -212,7 +227,8 @@ export class OnlineGameService {
       selectedSquare,
       piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
-    }); 
+    });
+    
       
    this.isCheckmate()
   } 
@@ -225,10 +241,23 @@ export class OnlineGameService {
       && board.get(selectedSquareNum)?.[0] === Pieces.Pawn;
   }
 
-  endgame(winnerBy:string){
-    const winner = this.gameStateSubject.value.active == Colors.Black ? Colors.White : Colors.Black
-    const game = {...this.gameStateSubject.value,winner} 
+  endgame(winnerBy:string = ''){
+    const winner = this.gameStateSubject.value.active == Colors.Black ? Colors.White : Colors.Black;
+    const gameEnded = true;
+    const game = {...this.gameStateSubject.value,winner,gameEnded,winnerBy} 
     this.gameStateSubject.next(game);
+    this.socket.emitGameState(game);
+    this.gameEnded.next(true);
+    this.dialog.open(EndgameDialogComponent,{
+      data: {
+        winner,
+        winnerBy
+      },
+    })
+  }
+
+  gameended(){
+    let {winner , winnerBy} = this.gameStateSubject.value;
     this.gameEnded.next(true);
     this.dialog.open(EndgameDialogComponent,{
       data: {
