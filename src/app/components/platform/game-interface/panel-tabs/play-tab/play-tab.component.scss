@@ -25,13 +25,13 @@
   background-color: rgb(10, 10, 10);
 }
 
-.pgn-actions mat-icon {
+.pgn-actions .icon {
   cursor: pointer;
   color: rgb(193, 193, 192);
   font-weight: 900;
 }
 
-.pgn-actions mat-icon:hover {
+.pgn-actions .icon:hover {
   color: rgb(227, 227, 227);
 }
 .pgn-actions table{
@@ -47,4 +47,7 @@
 .spacer {
   flex-grow: 1;
   /*padding-right: 300px;*/
+}
+.flag{
+  margin-right: 15px;
 }
