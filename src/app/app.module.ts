@@ -20,6 +20,8 @@ import { OnlineBoardComponent } from './components/online-board/online-board.com
 import { EndgameDialogComponent } from './components/endgame-dialog/endgame-dialog.component';
 import { InitialiseDialogComponent } from './components/initialise-dialog/initialise-dialog.component';
 import { PanelTabsComponent } from './components/platform/game-interface/panel-tabs/panel-tabs.component';
+import { PlayTabComponent } from './components/platform/game-interface/panel-tabs/play-tab/play-tab.component';
+
 
 @NgModule({
   imports: [
@@ -45,6 +47,7 @@ import { PanelTabsComponent } from './components/platform/game-interface/panel-t
     EndgameDialogComponent,
     InitialiseDialogComponent,
     PanelTabsComponent,
+    PlayTabComponent,
   ],
   bootstrap: [
     AppComponent,

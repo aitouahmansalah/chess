@@ -1,1 +1,21 @@
-<p>panel-tabs works!</p>
+
+<div class="w3-bar w3-black">
+  <button class="w3-bar-item w3-button" (click)="openCity('London')">game</button>
+  <button class="w3-bar-item w3-button" (click)="openCity('Paris')">chat</button>
+  <button class="w3-bar-item w3-button" (click)="openCity('Tokyo')">chi haja</button>
+</div>
+
+<div id="London" class="w3-container city">
+  <jv-play-tab></jv-play-tab>
+</div>
+
+<div id="Paris" class="w3-container city" style="display:none">
+  <h2>Paris</h2>
+  <p>Paris is the capital of France.</p> 
+</div>
+
+<div id="Tokyo" class="w3-container city" style="display:none">
+  <h2>Tokyo</h2>
+  <p>Tokyo is the capital of Japan.</p>
+</div>
+

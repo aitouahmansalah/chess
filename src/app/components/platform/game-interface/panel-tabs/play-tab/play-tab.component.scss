@@ -1,0 +1,50 @@
+.pgn-table {
+  height: 50vh;
+  overflow: hidden auto;
+}
+
+.pgn-table table {
+  padding: 7px 15px;
+  box-sizing: border-box;
+  width: 100%; /* Ensure table fills container */
+}
+
+.pgn-table table td {
+  max-height: fit-content;
+}
+
+.pgn-table table th,
+.pgn-table table td {
+  padding-right: 45px;
+}
+
+.pgn-actions {
+  padding: 7px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgb(10, 10, 10);
+}
+
+.pgn-actions mat-icon {
+  cursor: pointer;
+  color: rgb(193, 193, 192);
+  font-weight: 900;
+}
+
+.pgn-actions mat-icon:hover {
+  color: rgb(227, 227, 227);
+}
+.pgn-actions table{
+  width: 100%;
+}
+.pgn-actions table tbody tr{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+}
+
+.spacer {
+  flex-grow: 1;
+  /*padding-right: 300px;*/
+}
