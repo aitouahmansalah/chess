@@ -21,6 +21,7 @@ import { EndgameDialogComponent } from './components/endgame-dialog/endgame-dial
 import { InitialiseDialogComponent } from './components/initialise-dialog/initialise-dialog.component';
 import { PanelTabsComponent } from './components/platform/game-interface/panel-tabs/panel-tabs.component';
 import { PlayTabComponent } from './components/platform/game-interface/panel-tabs/play-tab/play-tab.component';
+import { ChatTabComponent } from './components/platform/game-interface/panel-tabs/chat-tab/chat-tab.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { PlayTabComponent } from './components/platform/game-interface/panel-tab
     InitialiseDialogComponent,
     PanelTabsComponent,
     PlayTabComponent,
+    ChatTabComponent,
   ],
   bootstrap: [
     AppComponent,

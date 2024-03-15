@@ -1,5 +1,5 @@
 .pgn-table {
-  height: 50vh;
+  height: 93%;
   overflow: hidden auto;
 }
 
@@ -23,6 +23,8 @@
   width: 100%;
   box-sizing: border-box;
   background-color: rgb(10, 10, 10);
+  position: relative;
+  bottom: 0;
 }
 
 .pgn-actions .icon {
@@ -50,4 +52,28 @@
 }
 .flag{
   margin-right: 15px;
+}
+.container
+{
+  height: 100%;
+}
+
+// SCROLL BAR
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #2a2a2a; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

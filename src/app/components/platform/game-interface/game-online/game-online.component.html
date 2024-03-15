@@ -1,10 +1,11 @@
 
 <div class="container">
   <jv-sidebar class="app-sidebar"></jv-sidebar>
+  
   <div class="main-content" *ngIf="gameStarted">
     <jv-game-online-board></jv-game-online-board>
   </div>
-  <div class="panel-tabs-container">
+  <div class="panel-tabs-container" *ngIf="gameStarted">
     <jv-panel-tabs></jv-panel-tabs>
   </div>
 </div>

@@ -75,11 +75,10 @@ export class GameOnlineBoardComponent implements OnInit {
 
   this.gameService.activeColor$.subscribe(activeColor =>{
     this.activeColor = activeColor
-    
   })
   }
 
-  calculatePointsDiffrence(){
+  calculatePointsDiffrence():void{
     let whitePoints = 0;
     let blackPoints = 0;
     this.piecesTakenByBlack?.forEach(piece => {

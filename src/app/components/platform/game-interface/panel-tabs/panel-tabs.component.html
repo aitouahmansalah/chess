@@ -1,17 +1,28 @@
 
 <div class="w3-bar w3-black">
-  <button class="w3-bar-item w3-button" (click)="openCity('London')">game</button>
-  <button class="w3-bar-item w3-button" (click)="openCity('Paris')">chat</button>
-  <button class="w3-bar-item w3-button" (click)="openCity('Tokyo')">chi haja</button>
+  <button class="w3-bar-item w3-button game" (click)="openCity('game')">
+    <span class="material-symbols-outlined">
+    timer
+    </span>
+  </button>
+  <button class="w3-bar-item w3-button Paris" (click)="openCity('Paris')">
+    <span class="material-symbols-outlined">
+      forum
+    </span>
+  </button>
+  <button class="w3-bar-item w3-button Tokyo" (click)="openCity('Tokyo')">
+    <span class="material-symbols-outlined">
+      account_box
+    </span>
+  </button>
 </div>
 
-<div id="London" class="w3-container city">
+<div id="game" class="w3-container city" style="display:none">
   <jv-play-tab></jv-play-tab>
 </div>
 
-<div id="Paris" class="w3-container city" style="display:none">
-  <h2>Paris</h2>
-  <p>Paris is the capital of France.</p> 
+<div id="Paris" class="w3-container city" >
+  <jv-chat-tab></jv-chat-tab>
 </div>
 
 <div id="Tokyo" class="w3-container city" style="display:none">
