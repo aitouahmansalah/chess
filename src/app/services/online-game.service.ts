@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Injectable } from '@angular/core';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 
@@ -17,7 +18,7 @@ import { EndgameDialogComponent } from '../components/endgame-dialog/endgame-dia
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OnlineGameService {
 

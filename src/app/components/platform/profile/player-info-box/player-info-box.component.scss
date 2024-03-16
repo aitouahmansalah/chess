@@ -18,7 +18,21 @@
 .profile-picture-modifier{
   background-color: black;
   text-align: center;
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+  opacity: 0.5;
+  cursor: pointer;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  &:hover{
+    opacity: 0.7;
+    padding: 10px 0;
+  }
 }
+
 .profile-picture{
   width: 160px;
   border-radius: 8px;
@@ -29,7 +43,7 @@
   height: 100%;
   width: 100%;
   padding: 9px;
-  margin-top: -80px;
+  margin-top: -100px;
 }
 
 .icons-bar {
@@ -68,6 +82,7 @@
   width: 100%;
   display: flex;
   gap: 5px;
+  margin-top: 10px;
   justify-content: space-between;
   flex: 1;
 }
@@ -86,8 +101,10 @@
   justify-content: center;
   gap: 10px;
   line-height: 24px;
+  
+  &:hover{
+    background-color: rgb(68,67,64);
+    color: rgb(227,227,227);
+  }
 }
-.account-buttons button:hover{
-  background-color: rgb(68,67,64);
-  color: rgb(227,227,227);
-}
+

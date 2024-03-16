@@ -13,7 +13,6 @@ import {
 import { boardInitialPosition, squareNumber } from '../utils/board';
 import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
 
-
 @Injectable({ providedIn: 'root' })
 export class GameService {
   private gameStateSubject = new BehaviorSubject<GameState>({
