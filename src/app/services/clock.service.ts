@@ -71,15 +71,14 @@ export class ClockService {
         if(this.whiteTimeSubject.value <= 0 || this.blackTimeSubject.value <= 0){
           this.pauseClocks();  
           this.onlineGameService.endgame('time out');}
-      });}
-      else{
+      });
+    }else{
         this.socket.onTime().subscribe(time =>{
           this.whiteTimeSubject.next(time.whiteTime);
           this.blackTimeSubject.next(time.blackTime);
-        })
-      }
-      
-  }
+        })}
+} 
+    
 
   pauseClocks(): void {
     this.destroy$.next();

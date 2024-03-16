@@ -18,7 +18,13 @@ export class SocketService {
 
   emitGameState(gameState: GameState): void {
     const boardObject: { [key: number]: [Pieces, Colors] } = Object.fromEntries(gameState.board);
-    this.socket.emit('move', {gameState,boardObject});
+    
+    const state: { [key: number]: string } = Object.fromEntries(
+      gameState.history.map((entry, index) => [index, JSON.stringify(Array.from(entry.state.entries()))])
+    );
+  
+  
+    this.socket.emit('move', {gameState,boardObject,state});
   }
 
   onGameStateUpdate(): Observable<any> {
