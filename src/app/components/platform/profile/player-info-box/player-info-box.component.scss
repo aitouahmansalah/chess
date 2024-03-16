@@ -1,0 +1,93 @@
+.box{
+  padding: 32px;
+  border-radius: 8px;
+  background-color: rgb(38,37,34);
+}
+.profile-picture-container{
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+
+.profile-picture-modifier,.profile-picture{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+.profile-picture-modifier{
+  background-color: black;
+  text-align: center;
+}
+.profile-picture{
+  width: 160px;
+  border-radius: 8px;
+}
+
+.grid-container{
+  display: grid;
+  height: 100%;
+  width: 100%;
+  padding: 9px;
+  margin-top: -80px;
+}
+
+.icons-bar {
+  display: flex;
+  width: 100%;
+  color: rgb(147,146,145);
+}
+
+.icon-and-text {
+  display: flex;      
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  flex-grow: 1;
+  padding: 10px;
+  text-align: center;      
+}
+
+.icon-and-text .icon{
+  font-size: 30px;
+  font-weight: 900;
+
+}
+
+.user-name{
+  font-size: 35px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.full-width{
+  width: 100%;
+
+}
+.account-buttons{
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+  flex: 1;
+}
+.account-buttons button{
+  padding: 12px;
+  font-size: 16px;
+  background-color: rgb(60,59,57);
+  color: rgb(147,146,145);
+  border: none;
+  cursor: pointer;
+  flex: 1;
+  height: 48px;
+  border-radius: 8px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  line-height: 24px;
+}
+.account-buttons button:hover{
+  background-color: rgb(68,67,64);
+  color: rgb(227,227,227);
+}

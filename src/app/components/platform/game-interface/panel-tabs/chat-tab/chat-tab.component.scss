@@ -26,6 +26,7 @@
 .container {
   
   background-color: #444444;
+  opacity: 0.5;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
@@ -95,7 +96,7 @@
 
 .input-container button {
   padding: 8px 15px;
-  background-color: #4CAF50;
+  background-color: #4CAF50 !important;
   color: white;
   border: none;
   border-radius: 5px;
