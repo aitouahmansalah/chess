@@ -18,4 +18,18 @@ export class PlayTabComponent implements OnInit {
     })
   }
 
+  resign(){
+    this.gameService.endgame('resign');
+  }
+
+  back(){
+    const index = this.gameService.index.value -1 ;
+    this.gameService.index.next(index);
+  }
+
+  forward(){
+    const index = this.gameService.index.value + 1;
+    this.gameService.index.next(index);
+  }
+
 }

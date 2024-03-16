@@ -7,9 +7,10 @@ import { SigninComponent } from './components/platform/signin/signin.component';
 import { GameOnlineComponent } from './components/platform/game-interface/game-online/game-online.component';
 
 const routes: Routes = [
-  { path: '', component: IndexComponent },
+  
   { path: 'signin', component: SigninComponent },
   { path: 'game-online', component: GameOnlineComponent},
+  { path: '', component: IndexComponent , pathMatch : 'full' },
 
 ];
 
