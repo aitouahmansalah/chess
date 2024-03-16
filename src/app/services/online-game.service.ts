@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Dialog } from '@angular/cdk/dialog';
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
 
 import { BehaviorSubject, map, Observable, pluck } from 'rxjs';
 
 import { BoardMap, GameState } from '../models/game-state.model';
 import { Colors } from '../models/colors.enum';
 import { Pieces } from '../models/pieces.enum';
-import { Move, MoveActions } from '../models/move.model';
+import { HistoryMove, Move, MoveActions } from '../models/move.model';
 import {
   PromoteDialogComponent,
 } from '../components/promote-dialog/promote-dialog.component';
@@ -25,9 +25,13 @@ export class OnlineGameService {
 
   gameEnded : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
 
+  pgn : {whiteMove:string,blackMove:string}[] = [];
+
+  checkDialog !: DialogRef<unknown, EndgameDialogComponent>;
+
   playerColor !: Colors;
 
-  private gameStateSubject = new BehaviorSubject<GameState>({
+   gameStateSubject = new BehaviorSubject<GameState>({
     board: boardInitialPosition,
     active: Colors.White,
     history: [{
@@ -54,9 +58,25 @@ export class OnlineGameService {
         .map(([key, value]): [number, [Pieces, Colors]] => [parseInt(key), value as [Pieces, Colors]]);
       const board = new Map(boardEntries);
       const updatedGameState = { ...gameState.gameState, board };
+      
+      const originalStates: Map<number, Map<number, [Pieces, Colors]>> = new Map<number, Map<number, [Pieces, Colors]>>();
+      Object.entries(gameState.state).forEach(([index, jsonString]) => {
+      if (typeof jsonString === 'string') {
+      const stateMap = new Map<number, [Pieces, Colors]>(JSON.parse(jsonString));
+      originalStates.set(parseInt(index), stateMap);
+    }
+    });
+    updatedGameState.history.forEach((entry:HistoryMove) => {
+      const index = entry.count;
+      if (originalStates.has(index)) {
+        entry.state = originalStates.get(index) as BoardMap;
+      }
+    });
+
+      console.log((originalStates));
       this.gameStateSubject.next(updatedGameState);
-      console.log(updatedGameState);
       if(updatedGameState.gameEnded) {this.gameended();console.log("test11")};
+      this.historyToPgn(updatedGameState.history);
     });
     
     this.socket.onboard().subscribe(s =>{
@@ -218,7 +238,7 @@ export class OnlineGameService {
       piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     });
-  
+  if(history[history.length-1].action)
     this.socket.emitGameState({
       board,
       active,
@@ -229,7 +249,8 @@ export class OnlineGameService {
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     });
     
-      
+      console.log(history);
+      this.historyToPgn(history);
    this.isCheckmate()
   } 
 
@@ -248,7 +269,8 @@ export class OnlineGameService {
     this.gameStateSubject.next(game);
     this.socket.emitGameState(game);
     this.gameEnded.next(true);
-    this.dialog.open(EndgameDialogComponent,{
+    if(!this.checkDialog)
+    this.checkDialog = this.dialog.open(EndgameDialogComponent,{
       data: {
         winner,
         winnerBy
@@ -259,7 +281,8 @@ export class OnlineGameService {
   gameended(){
     let {winner , winnerBy} = this.gameStateSubject.value;
     this.gameEnded.next(true);
-    this.dialog.open(EndgameDialogComponent,{
+    if(!this.checkDialog)
+    this.checkDialog = this.dialog.open(EndgameDialogComponent,{
       data: {
         winner,
         winnerBy
@@ -286,6 +309,105 @@ export class OnlineGameService {
     console.log('checkmate');
     this.endgame('checkmate');
   }
+
+
+   historyToPgn(history: HistoryMove[]) {
+      this.pgn = [];
+  
+      history.forEach((move, index) => {
+              let whiteMove : string ;
+              let blackMove : string;
+              let piece = move.state.get(move.to)?.[0]
+              let color = move.state.get(move.to)?.[1]
+          if (move.action === MoveActions.Move ) {
+            if( color == Colors.White && !(piece==Pieces.Pawn && move.to <8))  {
+              whiteMove = this.getPieceAcronym(piece) + this.squareNumberToAlgebraic(move.from) + this.squareNumberToAlgebraic(move.to);
+              this.pgn.push({whiteMove,blackMove:''})
+            } 
+            if (color == Colors.Black && !(piece==Pieces.Pawn && move.to >58)){
+              blackMove = this.getPieceAcronym(piece) + this.squareNumberToAlgebraic(move.from) + this.squareNumberToAlgebraic(move.to);
+              this.pgn[this.pgn.length - 1].blackMove = blackMove ;
+            }  
+          } else if (move.action === MoveActions.Capture ) {
+
+            if(color == Colors.White && !(piece==Pieces.Pawn && move.to <8))  {
+              whiteMove = this.getPieceAcronym(piece) + this.squareNumberToAlgebraic(move.from) + 'x' + this.squareNumberToAlgebraic(move.to);
+              this.pgn.push({whiteMove,blackMove:''})
+            } 
+            if (color == Colors.Black && !(piece==Pieces.Pawn && move.to >58)){
+              blackMove = this.getPieceAcronym(piece) + this.squareNumberToAlgebraic(move.from) + 'x' + this.squareNumberToAlgebraic(move.to);
+              this.pgn[this.pgn.length - 1].blackMove = blackMove ;
+            }  
+          }  else if (move.action === MoveActions.Promote) {
+               
+               if(color == Colors.White  )  {
+                whiteMove = this.squareNumberToAlgebraic(move.to) + '=' + this.getPieceAcronym(piece);
+                this.pgn.push({whiteMove,blackMove:''})
+              } 
+              if (color == Colors.Black){
+                blackMove = this.squareNumberToAlgebraic(move.to) + '=' + this.getPieceAcronym(piece);
+                this.pgn[this.pgn.length - 1].blackMove = blackMove ;
+              }  
+              
+          }else if (move.action === MoveActions.ShortCastle) {
+
+            if(color == Colors.White)  {
+              whiteMove = "O-O";
+              this.pgn.push({whiteMove,blackMove:''})
+            } 
+            if (color == Colors.Black){
+              blackMove = "O-O";
+              this.pgn[this.pgn.length - 1].blackMove = blackMove ;
+            } 
+          }else if (move.action === MoveActions.LongCastle) {
+
+            if(color == Colors.White)  {
+              whiteMove = "O-O-O";
+              this.pgn.push({whiteMove,blackMove:''})
+            } 
+            if (color == Colors.Black){
+              blackMove = "O-O-O";
+              this.pgn[this.pgn.length - 1].blackMove = blackMove ;
+            } 
+          }
+          
+      });
+      if(this.gameEnded){
+        if(this.gameStateSubject.value.winner == Colors.White)  {
+          this.pgn[this.pgn.length - 1].whiteMove += '#' ;
+        } 
+        if (this.gameStateSubject.value.winner == Colors.Black){
+        
+          this.pgn[this.pgn.length - 1].blackMove += '#' ;
+        } 
+      }
+  }
+  
+  squareNumberToAlgebraic(squareNum: number): string {
+      const rank = 8 - Math.floor((squareNum - 1) / 8);
+      const file = String.fromCharCode(97 + ((squareNum - 1) % 8));
+      return file + rank;
+  }
+  
+
+
+  getPieceAcronym(piece: Pieces | undefined): string {
+    switch (piece) {
+      case Pieces.Knight:
+        return 'N';
+      case Pieces.Bishop:
+        return 'B';
+      case Pieces.Rook:
+        return 'R';
+      case Pieces.Queen:
+        return 'Q';
+      case Pieces.King:
+        return 'K';
+      default:
+        return ''; 
+    }
+  }
+  
   
 
 }
