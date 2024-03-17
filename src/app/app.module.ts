@@ -26,6 +26,7 @@ import { ProfileComponent } from './components/platform/profile/profile.componen
 import { ProfileGridComponent } from './components/platform/profile/profile-grid/profile-grid.component';
 import { PlayerInfoBoxComponent } from './components/platform/profile/player-info-box/player-info-box.component';
 import { SignupComponent } from './components/platform/signup/signup.component';
+import { GamesListComponent } from './components/platform/profile/games-list/games-list.component';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { SignupComponent } from './components/platform/signup/signup.component';
     ProfileGridComponent,
     PlayerInfoBoxComponent,
     SignupComponent,
+    GamesListComponent,
   ],
   bootstrap: [
     AppComponent,

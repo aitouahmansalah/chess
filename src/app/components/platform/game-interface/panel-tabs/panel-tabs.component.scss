@@ -1,5 +1,6 @@
 @import url('https://www.w3schools.com/w3css/4/w3.css');
 
+
 .w3-black
 {
   min-width: 100%;
@@ -26,4 +27,8 @@ button{
 .city{
   height: 80vh;
   box-sizing: border-box;
+}
+.active
+{
+  background-color: rgb(38,37,34);
 }

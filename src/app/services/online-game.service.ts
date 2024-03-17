@@ -32,6 +32,8 @@ export class OnlineGameService {
 
   playerColor !: Colors;
 
+  index  = new BehaviorSubject<number>(0);
+
    gameStateSubject = new BehaviorSubject<GameState>({
     board: boardInitialPosition,
     active: Colors.White,
@@ -53,6 +55,10 @@ export class OnlineGameService {
        this.gameStarted.next(true) ;
        this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
     });
+
+    this.socket.onDesconnect().subscribe(des => {
+      this.endgame('resign');
+    })
 
     this.socket.onGameStateUpdate().subscribe(gameState => {
       const boardEntries: [number, [Pieces, Colors]][] = Object.entries(gameState.boardObject)
@@ -78,12 +84,14 @@ export class OnlineGameService {
       this.gameStateSubject.next(updatedGameState);
       if(updatedGameState.gameEnded) {this.gameended();console.log("test11")};
       this.historyToPgn(updatedGameState.history);
+      this.index.next(updatedGameState.history.length -1 );
     });
-    
-    this.socket.onboard().subscribe(s =>{
-      console.log(s);
+  
+    this.index.subscribe(index => {
+      const board = this.gameStateSubject.value.history[index].state;
+      const game = {...this.gameStateSubject.value,board}
+      this.gameStateSubject.next(game);
     })
-
   
   }
 
@@ -250,7 +258,7 @@ export class OnlineGameService {
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     });
     
-      console.log(history);
+      this.index.next(history.length - 1);
       this.historyToPgn(history);
    this.isCheckmate()
   } 

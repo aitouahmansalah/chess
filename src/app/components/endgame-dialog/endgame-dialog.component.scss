@@ -2,7 +2,7 @@
 {
   text-align: center;
   color: white;
-  
+  border-radius: 8px;
   margin: 0;
   font-weight: bold;
   background-color: rgb(30,29,26);
@@ -77,4 +77,5 @@
   font-size: large;
   font-weight: bold;
   cursor: pointer;
+  outline: none;
 }

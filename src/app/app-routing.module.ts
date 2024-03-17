@@ -9,7 +9,8 @@ import { ProfileComponent } from './components/platform/profile/profile.componen
 import { SignupComponent } from './components/platform/signup/signup.component';
 
 const routes: Routes = [
-  { path: '', component: IndexComponent },
+  { path: '', component: IndexComponent},
+
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent},
   { path: 'game-online', component: GameOnlineComponent},

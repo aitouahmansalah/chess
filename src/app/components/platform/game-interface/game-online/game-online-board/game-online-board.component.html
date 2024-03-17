@@ -46,7 +46,7 @@
                       ♖
                     </ng-container>
                   </span></span>
-                  <span *ngIf="winnerByPoints == opisatePlayerColor.toString()">
+                  <span *ngIf="winnerByPoints === opisatePlayerColor.toString()">
                     + {{ pointsDiffrence }}
                   </span>
                 </td>
@@ -111,7 +111,7 @@
                       ♖
                     </ng-container>
                   </span></span>
-                  <span *ngIf="winnerByPoints == playerColor.toString()">
+                  <span *ngIf="winnerByPoints === playerColor.toString()">
                     + {{ pointsDiffrence }}
                   </span>
                 </td>

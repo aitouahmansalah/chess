@@ -1,10 +1,13 @@
+/* eslint-disable max-len */
 // socket.service.ts
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import  {io} from 'socket.io-client';
+import {io} from 'socket.io-client';
 import { BoardMap, GameState } from '../models/game-state.model';
 import { Pieces } from '../models/pieces.enum';
 import { Colors } from '../models/colors.enum';
+import { OnlineBoardComponent } from '../components/online-board/online-board.component';
+import { OnlineGameService } from './online-game.service';
 
 @Injectable({
   providedIn: 'root'
@@ -58,21 +61,14 @@ export class SocketService {
     });
   }
 
-  emitBoard(gameState: BoardMap): void {
-    // Define the type of gameStateObject
-    const gameStateObject: { [key: number]: [Pieces, Colors] } = Object.fromEntries(gameState);
-
-    // Emit the gameStateObject
-    this.socket.emit('board', "test");
-    console.log(gameState);
-  }
-  
-
-  onboard(): Observable<BoardMap> {
-    return new Observable<BoardMap>(observer => {
-      this.socket.on('board', (updatedGameState: BoardMap) => {
-        observer.next(updatedGameState);
+  onDesconnect():Observable<string>{
+    return new Observable<string>(observer => {
+      this.socket.on('disconnect', (obj: string) => {
+        observer.next(obj);
+        console.log('disconnected');
       });
     });
   }
+  
+
 }

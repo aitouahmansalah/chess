@@ -1,6 +1,6 @@
 <div class="sidebar">
   <div class="logo">
-    <h2>Chess</h2>
+    <p class="titre">Chess</p>
   </div>
   <div class="user-info" [routerLink]="['profile']">
     <img src="../../../../assets/profile/profile.png" alt="Profile Picture">
@@ -15,8 +15,8 @@
       <li><a href="#">Learn</a></li>
       <li><a href="#">Connect</a></li>
       <li><a href="#">More</a></li>
-      <li><button class="sign-up">Sign Up</button></li>
-      <li><button class="sign-in" [routerLink]="'signin'">Sign In</button></li>
+      <li><button class="sign-up" [routerLink]="['/signup']">Sign Up</button></li>
+      <li><button class="sign-in" [routerLink]="['/signin']">Sign In</button></li>
     </ul>
   </div>
 </div>

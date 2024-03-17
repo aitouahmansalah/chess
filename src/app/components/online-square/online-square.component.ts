@@ -78,7 +78,8 @@ export class OnlineSquareComponent implements OnInit {
   }
 
   get isSelectable(): boolean {
-    return (this.isActive || !!this.squareAction ) && this.gameStarted && !this.gameEnded;
+    console.log(this.gameService.index.value , this.gameService.gameStateSubject.value.history.length - 1)
+    return (this.isActive || !!this.squareAction ) && this.gameStarted && !this.gameEnded && (this.gameService.index.value == this.gameService.gameStateSubject.value.history.length - 1);
   }
 
   get imgSrc(): string | null {
@@ -114,7 +115,7 @@ export class OnlineSquareComponent implements OnInit {
   }
 
   onSquareClick(): void {
-    if((this.square?.[1] == this.playerColor || this.squareAction) && !this.gameEnded)
+    if((this.square?.[1] == this.playerColor || this.squareAction) && !this.gameEnded && (this.gameService.index.value == this.gameService.gameStateSubject.value.history.length - 1))
     this.gameService.selectSquare(this.rank, this.file);
   }
 

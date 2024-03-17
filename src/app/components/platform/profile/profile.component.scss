@@ -7,10 +7,14 @@
 
 .app-sidebar {
   flex: 0 0 auto;
+  position: fixed;
+  left: 0;
 }
 
 .main-content {
   flex-grow: 1;
+  margin-left: 270px;
+  overflow-x: hidden;
   padding: 20px;
 }
 
