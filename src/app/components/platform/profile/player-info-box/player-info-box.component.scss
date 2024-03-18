@@ -3,6 +3,7 @@
   border-radius: 8px;
   background-color: rgb(38,37,34);
   margin-bottom: 11px;
+
 }
 .profile-picture-container{
   width: 160px;
@@ -15,6 +16,7 @@
   width: 100%;
   bottom: 0;
   left: 0;
+  user-select: none;
 }
 .profile-picture-modifier{
   background-color: black;
@@ -51,6 +53,7 @@
   display: flex;
   width: 100%;
   color: rgb(147,146,145);
+  user-select: none;
 }
 
 .icon-and-text {
