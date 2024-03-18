@@ -78,7 +78,6 @@ export class OnlineSquareComponent implements OnInit {
   }
 
   get isSelectable(): boolean {
-    console.log(this.gameService.index.value , this.gameService.gameStateSubject.value.history.length - 1)
     return (this.isActive || !!this.squareAction ) && this.gameStarted && !this.gameEnded && (this.gameService.index.value == this.gameService.gameStateSubject.value.history.length - 1);
   }
 

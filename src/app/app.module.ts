@@ -22,6 +22,8 @@ import { InitialiseDialogComponent } from './components/initialise-dialog/initia
 import { PanelTabsComponent } from './components/platform/game-interface/panel-tabs/panel-tabs.component';
 import { PlayTabComponent } from './components/platform/game-interface/panel-tabs/play-tab/play-tab.component';
 import { ChatTabComponent } from './components/platform/game-interface/panel-tabs/chat-tab/chat-tab.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { ChatTabComponent } from './components/platform/game-interface/panel-tab
     BrowserModule,
     DialogModule,
     AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,

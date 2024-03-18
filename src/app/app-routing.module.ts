@@ -5,11 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './components/platform/dashboard/index/index.component';
 import { SigninComponent } from './components/platform/signin/signin.component';
 import { GameOnlineComponent } from './components/platform/game-interface/game-online/game-online.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   
   { path: 'signin', component: SigninComponent },
-  { path: 'game-online', component: GameOnlineComponent},
+  { path: 'game-online', component: GameOnlineComponent ,canActivate:[AuthGuard]},
   { path: '', component: IndexComponent , pathMatch : 'full' },
 
 ];
