@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -9,16 +8,17 @@ import { ProfileComponent } from './components/platform/profile/profile.componen
 import { SignupComponent } from './components/platform/signup/signup.component';
 import { BlogComponent } from './components/platform/social/blog/blog.component';
 import { BlogPageComponent } from './components/platform/social/blog/blog-page/blog-page.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', component: IndexComponent},
-
+  { path: 'login', component: SigninComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'game-online', component: GameOnlineComponent },
-  { path: 'profile/:id', component: ProfileComponent },
-  { path: 'blog', component: BlogComponent },
-  { path: 'blog/:user/:post', component: BlogPageComponent },
+  { path: 'game-online', component: GameOnlineComponent,canActivate:[AuthGuard] },
+  { path: 'profile/:id', component: ProfileComponent,canActivate:[AuthGuard] },
+  { path: 'blog', component: BlogComponent ,canActivate:[AuthGuard]},
+  { path: 'blog/:user/:post', component: BlogPageComponent,canActivate:[AuthGuard] },
 
 ];
 

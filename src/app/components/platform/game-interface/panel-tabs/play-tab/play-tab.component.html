@@ -4,8 +4,8 @@
       <tbody>
         <tr *ngFor="let move of pgn; let i = index">
           <th>{{ i + 1 }}.</th>
-          <td>{{ move.whiteMove }}</td>
-          <td>{{ move.blackMove }}</td>
+          <td [ngClass]=" {'active' :((  calculateAbsDifference(index ,i) ) && color?.toString() === 'White')}">{{ move.whiteMove }}</td>
+          <td [ngClass]=" {'active' :(( calculateAbsDifference(index ,i) ) && color?.toString() === 'Black')}">{{ move.blackMove }}</td>
         </tr>
       </tbody>
     </table>

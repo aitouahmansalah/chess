@@ -22,6 +22,9 @@ import { InitialiseDialogComponent } from './components/initialise-dialog/initia
 import { PanelTabsComponent } from './components/platform/game-interface/panel-tabs/panel-tabs.component';
 import { PlayTabComponent } from './components/platform/game-interface/panel-tabs/play-tab/play-tab.component';
 import { ChatTabComponent } from './components/platform/game-interface/panel-tabs/chat-tab/chat-tab.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { ProfileComponent } from './components/platform/profile/profile.component';
 import { ProfileGridComponent } from './components/platform/profile/profile-grid/profile-grid.component';
 import { PlayerInfoBoxComponent } from './components/platform/profile/player-info-box/player-info-box.component';
@@ -40,6 +43,8 @@ import { BlogCommentSectionComponent } from './components/platform/social/blog/b
     BrowserModule,
     DialogModule,
     AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,

@@ -2,16 +2,16 @@
 
   <h2 class="title"> Create your account</h2>
   <div class="card">
-    <form>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
       <div class="email-login">
           <label for="email"> <b>Email</b></label>
-          <input type="text" placeholder="Email" name="uname" required>
+          <input type="text" placeholder="Email" name="uname" required formControlName="email">
           <label for="text"> <b>user-name</b></label>
-          <input type="text" placeholder="user-name" name="uname" required>
+          <input type="text" placeholder="user-name" name="uname" required formControlName="username">
           <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Password" name="psw" required>
+          <input type="password" placeholder="Password" name="psw" required formControlName="password">
       </div>
-      <button class="cta-btn">Sign up</button>
+      <button class="cta-btn" type="submit">Sign up</button>
 
       <p class="or"><span>or</span></p>
 
