@@ -37,6 +37,7 @@ import { BlogPageComponent } from './components/platform/social/blog/blog-page/b
 import { BlogPageGridComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-page-grid.component';
 import { BlogPostBoxComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-post-box/blog-post-box.component';
 import { BlogCommentSectionComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-comment-section/blog-comment-section.component';
+import { ZoomDirective } from './directives/zoom.directive';
 
 @NgModule({
   imports: [
@@ -44,7 +45,7 @@ import { BlogCommentSectionComponent } from './components/platform/social/blog/b
     DialogModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,
@@ -78,6 +79,7 @@ import { BlogCommentSectionComponent } from './components/platform/social/blog/b
     BlogPageGridComponent,
     BlogPostBoxComponent,
     BlogCommentSectionComponent,
+    ZoomDirective,
   ],
   bootstrap: [
     AppComponent,

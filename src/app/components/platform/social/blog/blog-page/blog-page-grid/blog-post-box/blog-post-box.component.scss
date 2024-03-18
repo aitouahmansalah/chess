@@ -33,6 +33,20 @@
       display: inline-block;
       
     }
+    .row{
+      display: flex;
+      justify-content: space-between;
+      span{
+        cursor: pointer;
+        display: inline-block;
+        padding: 7px;
+        color: #b0b0b0;
+        user-select: none;
+        &:hover{
+          color: white;
+        }
+      }
+    }
   }
 
 }
