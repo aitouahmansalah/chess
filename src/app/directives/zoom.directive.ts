@@ -29,7 +29,7 @@ export class ZoomDirective {
   }
 
   private zoom(scale: number) {
-    this.elementRef.nativeElement.style.transform = `scale(${scale})`;
+    this.zoomTarget.nativeElement.style.transform = `scale(${scale})`;
   }
 
 }
