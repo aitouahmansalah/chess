@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 // socket.service.ts
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import  {io} from 'socket.io-client';
+import {io} from 'socket.io-client';
 import { BoardMap, GameState } from '../models/game-state.model';
 import { Pieces } from '../models/pieces.enum';
 import { Colors } from '../models/colors.enum';

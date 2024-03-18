@@ -1,31 +1,31 @@
 
 <div class="w3-bar w3-black">
-  <button class="w3-bar-item w3-button game" (click)="openCity('game')">
+  <button class="w3-bar-item w3-button" [ngClass]="{'active': opendTab==='game'}" (click)="changeTab('game')">
     <span class="material-symbols-outlined">
     timer
     </span>
   </button>
-  <button class="w3-bar-item w3-button Paris" (click)="openCity('Paris')">
+  <button class="w3-bar-item w3-button" [ngClass]="{'active': opendTab==='chat'}" (click)="changeTab('chat')">
     <span class="material-symbols-outlined">
       forum
     </span>
   </button>
-  <button class="w3-bar-item w3-button Tokyo" (click)="openCity('Tokyo')">
+  <button class="w3-bar-item w3-button" [ngClass]="{'active': opendTab==='adersaire-profile'}" (click)="changeTab('adersaire-profile')">
     <span class="material-symbols-outlined">
       account_box
     </span>
   </button>
 </div>
 
-<div id="game" class="w3-container city" style="display:none">
+<div id="game" class="w3-container city" *ngIf="opendTab==='game'">
   <jv-play-tab></jv-play-tab>
 </div>
 
-<div id="Paris" class="w3-container city" >
+<div id="chat" class="w3-container city" *ngIf="opendTab==='chat'">
   <jv-chat-tab></jv-chat-tab>
 </div>
 
-<div id="Tokyo" class="w3-container city" style="display:none">
+<div id="Tokyo" class="w3-container city" *ngIf="opendTab==='adersaire-profile'">
   <h2>Tokyo</h2>
   <p>Tokyo is the capital of Japan.</p>
 </div>

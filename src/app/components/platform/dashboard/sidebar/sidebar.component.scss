@@ -69,7 +69,7 @@
 
 .sidebar-menu .sign-in,
 .sidebar-menu .sign-up {
-  background-color: #4CAF50;
+  background-color: #4CAF50 !important;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -86,13 +86,17 @@
 }
 
 .sidebar-menu .sign-up{
-  background-color: rgb(55,54,52);
+  background-color: rgb(55,54,52) !important;
 }
 
 .sidebar-menu .sign-up:hover{
-  background-color: rgb(73,72,70);
+  background-color: rgb(73,72,70) !important;
 }
 .sidebar-menu .sign-in:hover {
-  background-color: #45a049;
+  background-color: #45a049 !important;
+}
+
+.titre{
+  font-size: 35px;
 }
 

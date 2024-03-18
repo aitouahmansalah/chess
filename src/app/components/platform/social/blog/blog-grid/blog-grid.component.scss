@@ -1,0 +1,17 @@
+*{
+  box-sizing: border-box;
+}
+.container{
+  width: 90%;
+  display: flex;
+}
+.main{
+  width: 70%;
+  margin-right: 3%;
+  
+}
+
+.side{
+  width: 25%;
+  background-color: brown;
+}

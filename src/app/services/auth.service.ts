@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 
@@ -14,7 +15,7 @@ export class AuthService {
 
   user !: User;
   
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private router:Router) {
   
   }
 
@@ -38,7 +39,8 @@ export class AuthService {
 
   isLoggedIn():boolean{
      const token = localStorage.getItem('access_token')
-    return !!this.user && !!token
+     console.log(this.user)
+    return  !!token
   }
 
   logout(){
@@ -46,10 +48,18 @@ export class AuthService {
     window.location.reload();
   }
 
+  autoLogin(){
+    const token = localStorage.getItem('access_token')
+    if(token)
+    this.getUserFromToken(token)
+    //this.router.navigate(['../'])
+  }
+
 
   getUserFromToken(token: string) {
     this.http.get<User>(this.apiUrl+'/users/token/'+token).subscribe(user => {
       this.user = user ;
+      if(user) this.router.navigate(['/'])
       console.log(user);
     });
   }

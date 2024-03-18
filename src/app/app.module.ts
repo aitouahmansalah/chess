@@ -25,6 +25,17 @@ import { ChatTabComponent } from './components/platform/game-interface/panel-tab
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { ProfileComponent } from './components/platform/profile/profile.component';
+import { ProfileGridComponent } from './components/platform/profile/profile-grid/profile-grid.component';
+import { PlayerInfoBoxComponent } from './components/platform/profile/player-info-box/player-info-box.component';
+import { SignupComponent } from './components/platform/signup/signup.component';
+import { GamesListComponent } from './components/platform/profile/games-list/games-list.component';
+import { BlogComponent } from './components/platform/social/blog/blog.component';
+import { BlogGridComponent } from './components/platform/social/blog/blog-grid/blog-grid.component';
+import { BlogListComponent } from './components/platform/social/blog/blog-list/blog-list.component';
+import { BlogPageComponent } from './components/platform/social/blog/blog-page/blog-page.component';
+import { BlogPageGridComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-page-grid.component';
+import { BlogPostBoxComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-post-box/blog-post-box.component';
 
 @NgModule({
   imports: [
@@ -54,10 +65,20 @@ import { ReactiveFormsModule } from '@angular/forms';
     PanelTabsComponent,
     PlayTabComponent,
     ChatTabComponent,
+    ProfileComponent,
+    ProfileGridComponent,
+    PlayerInfoBoxComponent,
+    SignupComponent,
+    GamesListComponent,
+    BlogComponent,
+    BlogGridComponent,
+    BlogListComponent,
+    BlogPageComponent,
+    BlogPageGridComponent,
+    BlogPostBoxComponent,
   ],
   bootstrap: [
     AppComponent,
   ],
 })
-export class AppModule {
-}
+export class AppModule {}

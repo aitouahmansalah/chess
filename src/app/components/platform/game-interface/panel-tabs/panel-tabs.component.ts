@@ -7,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./panel-tabs.component.scss'],
 })
 export class PanelTabsComponent {
+  opendTab:string = 'game';
   constructor() {}
 
+  changeTab(tabName:string):void {
+    this.opendTab = tabName;
+  }
   openCity(cityName: string): void {
     // Get all elements with class "city" and hide them
     const cities = document.getElementsByClassName("city");

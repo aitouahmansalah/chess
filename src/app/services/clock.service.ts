@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, interval, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -7,7 +8,7 @@ import { OnlineGameService } from './online-game.service';
 import { SocketService } from './socket.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClockService {
   private interval$: Observable<number>;
@@ -43,20 +44,18 @@ export class ClockService {
         if(currentPlayer == Colors.Black)  
           this.blackTimeSubject.next(this.blackTimeSubject.value - 1000);
       });
-     
+
       if(this.whiteTimeSubject.value == 0 || this.blackTimeSubject.value == 0)
       this.destroy$.next();
-      
   }
 
   startClocksOnline(): void {
     this.whiteTimeSubject.next(600000);
     this.blackTimeSubject.next(600000);
-   if(this.onlineGameService.playerColor == Colors.White){
+    if(this.onlineGameService.playerColor == Colors.White){
     this.interval$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-
         if(this.gameEnded)
         this.pauseClocks();
         
@@ -79,7 +78,6 @@ export class ClockService {
         })}
 } 
     
-
   pauseClocks(): void {
     this.destroy$.next();
   }
