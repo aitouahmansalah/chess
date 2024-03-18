@@ -33,6 +33,7 @@ import { BlogListComponent } from './components/platform/social/blog/blog-list/b
 import { BlogPageComponent } from './components/platform/social/blog/blog-page/blog-page.component';
 import { BlogPageGridComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-page-grid.component';
 import { BlogPostBoxComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-post-box/blog-post-box.component';
+import { BlogCommentSectionComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-comment-section/blog-comment-section.component';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import { BlogPostBoxComponent } from './components/platform/social/blog/blog-pag
     BlogPageComponent,
     BlogPageGridComponent,
     BlogPostBoxComponent,
+    BlogCommentSectionComponent,
   ],
   bootstrap: [
     AppComponent,
