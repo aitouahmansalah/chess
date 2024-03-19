@@ -68,6 +68,10 @@ export class AuthService {
     return localStorage.getItem('access_token')
   }
 
+  getUserFromName(name: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/users/${name}`);
+  }
+
 }
   
 

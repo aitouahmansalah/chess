@@ -1,5 +1,8 @@
 /* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
+import { Socket } from 'socket.io-client';
+import { User } from 'src/app/models/user.model';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'jv-panel-tabs',
@@ -8,7 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PanelTabsComponent {
   opendTab:string = 'game';
-  constructor() {}
+  messages : {message : string , user : User , date : Date}[] = [];
+  constructor(private socket : SocketService) {
+    this.socket.onmessage().subscribe(mes => {
+      if (!this.messages.find(msg => msg.message === mes.message && msg.date === mes.date)) {
+        this.messages.push(mes);
+      }
+    });
+  }
 
   changeTab(tabName:string):void {
     this.opendTab = tabName;

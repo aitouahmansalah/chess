@@ -1,31 +1,22 @@
 
 
 <div class="box">
-  <div class="container">
+  <ng-container *ngFor="let message of messages">
+    <div class="container" *ngIf="message.user.id == user.id">
     <img src="../../../../../../assets/profile/profile.png" alt="Avatar">
-    <p>Hello. How are you today?</p>
-    <span class="time-right">11:00</span>
+    <p>{{ message.message }}</p>
+    <span class="time-right">{{ message.date | date:'HH:mm'  }}</span>
   </div>
   
-  <div class="container darker">
+   <div class="container darker" *ngIf="message.user.id != user.id">
     <img src="../../../../../../assets/profile/profile.png" alt="Avatar" class="right">
-    <p>Hey! I'm fine. Thanks for asking!</p>
-    <span class="time-left">11:01</span>
-  </div>
+    <p>{{ message.message }}</p>
+    <span class="time-left">{{ message.date | date:'HH:mm'  }}</span>
+  </div> 
   
-  <div class="container">
-    <img src="../../../../../../assets/profile/profile.png" alt="Avatar">
-    <p>Sweet! So, what do you wanna do today?</p>
-    <span class="time-right">11:02</span>
-  </div>
+  </ng-container>
   
-  <div class="container darker">
-    <img src="../../../../../../assets/profile/profile.png" alt="Avatar" class="right">
-    <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-    <span class="time-left">11:05</span>
-  </div>
-  
-  <div class="container">
+  <!-- <div class="container">
     <img src="../../../../../../assets/profile/profile.png" alt="Avatar">
     <p>Sweet! So, what do you wanna do today?</p>
     <span class="time-right">11:02</span>
@@ -48,12 +39,24 @@
     <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
     <span class="time-left">11:05</span>
   </div>
+  
+  <div class="container">
+    <img src="../../../../../../assets/profile/profile.png" alt="Avatar">
+    <p>Sweet! So, what do you wanna do today?</p>
+    <span class="time-right">11:02</span>
+  </div>
+  
+  <div class="container darker">
+    <img src="../../../../../../assets/profile/profile.png" alt="Avatar" class="right">
+    <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
+    <span class="time-left">11:05</span>
+  </div>  -->
 
 </div>
-<div class="input-container">
-  <input type="text" placeholder="Type your message...">
-  <button>
-    <span class="material-symbols-outlined">
+<div class="input-container" >
+  <input type="text" placeholder="Type your message..." [(ngModel)]="input">
+  <button (click)="send()">
+    <span class="material-symbols-outlined" >
       send
     </span>
   </button>
