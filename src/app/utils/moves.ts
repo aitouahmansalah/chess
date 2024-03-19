@@ -327,7 +327,6 @@ function calculateKingMoves(board: BoardMap,
     return kingOk && rookOk;
   });
 
-
   if (canShortCastle) {
     moves.push({
       square: isWhite ? 63 : 7,

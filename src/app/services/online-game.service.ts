@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable max-len */
 import { Injectable } from '@angular/core';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
@@ -16,12 +17,10 @@ import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
 import { SocketService } from './socket.service';
 import { EndgameDialogComponent } from '../components/endgame-dialog/endgame-dialog.component';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class OnlineGameService {
-
   gameStarted : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
 
   gameEnded : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
@@ -32,9 +31,9 @@ export class OnlineGameService {
 
   playerColor !: Colors;
 
-  index  = new BehaviorSubject<number>(0);
+  index = new BehaviorSubject<number>(0);
 
-   gameStateSubject = new BehaviorSubject<GameState>({
+  gameStateSubject = new BehaviorSubject<GameState>({
     board: boardInitialPosition,
     active: Colors.White,
     history: [{
@@ -50,10 +49,9 @@ export class OnlineGameService {
   });
 
   constructor(private dialog: Dialog,private socket:SocketService) {
-
     this.socket.onjoinedRoom().subscribe(obj =>{
-       this.gameStarted.next(true) ;
-       this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
+      this.gameStarted.next(true) ;
+      this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
     });
 
     this.socket.onDesconnect().subscribe(des => {
@@ -92,7 +90,6 @@ export class OnlineGameService {
       const game = {...this.gameStateSubject.value,board}
       this.gameStateSubject.next(game);
     })
-  
   }
 
   get activeColor$(): Observable<Colors> {
@@ -128,7 +125,7 @@ export class OnlineGameService {
   get gameEnded$(): Observable<(boolean|undefined)> {
     return this.gameStateSubject.asObservable()
       .pipe(
-        map(gameState => gameState.gameEnded)
+        map(gameState => gameState.gameEnded),
       );
   }
 
