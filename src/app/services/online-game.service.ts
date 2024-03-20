@@ -16,6 +16,8 @@ import { boardInitialPosition, rankAndFile, squareNumber } from '../utils/board'
 import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
 import { SocketService } from './socket.service';
 import { EndgameDialogComponent } from '../components/endgame-dialog/endgame-dialog.component';
+import { User } from '../models/user.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +28,8 @@ export class OnlineGameService {
   gameEnded : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
 
   pgn : {whiteMove:string,blackMove:string}[] = [];
+
+  opposetUser !: User ;
 
   checkDialog !: DialogRef<unknown, EndgameDialogComponent>;
 
@@ -49,9 +53,10 @@ export class OnlineGameService {
   });
 
   constructor(private dialog: Dialog,private socket:SocketService) {
+
     this.socket.onjoinedRoom().subscribe(obj =>{
-      this.gameStarted.next(true) ;
-      this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
+       this.gameStarted.next(true) ;
+       this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
     });
 
     this.socket.onDesconnect().subscribe(des => {

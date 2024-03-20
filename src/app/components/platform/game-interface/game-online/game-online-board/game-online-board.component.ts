@@ -2,9 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Colors } from 'src/app/models/colors.enum';
 import { Pieces } from 'src/app/models/pieces.enum';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ClockService } from 'src/app/services/clock.service';
 import { GameService } from 'src/app/services/game.service';
 import { OnlineGameService } from 'src/app/services/online-game.service';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'jv-game-online-board',
@@ -39,12 +42,23 @@ export class GameOnlineBoardComponent implements OnInit {
 
   opisatePlayerColor !: Colors;
 
-  playeIsWhite !: boolean
+  playeIsWhite !: boolean;
+
+  user!:User ;
+
+  opposetUser!:User ;
+
+  
 
   constructor(private gameService:OnlineGameService,
-              private clockService:ClockService) { }
+              private clockService:ClockService,
+              private auth:AuthService,
+              private socket:SocketService) { }
 
   ngOnInit(): void {
+
+
+
     this.gameService.piecesTakenByBlack$.subscribe(pieces => {
         this.piecesTakenByBlack = pieces ;
         this.calculatePointsDiffrence()
@@ -61,6 +75,8 @@ export class GameOnlineBoardComponent implements OnInit {
     this.playerColor = this.gameService.playerColor; 
     this.opisatePlayerColor = this.playerColor == Colors.Black ? Colors.White : Colors.Black;
     this.playeIsWhite = this.playerColor == Colors.White;  
+    this.opposetUser =  this.gameService.opposetUser ;
+    this.user = this.auth.user;
   }
   })
   

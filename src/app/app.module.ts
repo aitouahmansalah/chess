@@ -24,6 +24,7 @@ import { PlayTabComponent } from './components/platform/game-interface/panel-tab
 import { ChatTabComponent } from './components/platform/game-interface/panel-tabs/chat-tab/chat-tab.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { ProfileComponent } from './components/platform/profile/profile.component';
 import { ProfileGridComponent } from './components/platform/profile/profile-grid/profile-grid.component';
@@ -49,6 +50,7 @@ import { GamePreviewTabsComponent } from './components/platform/game-interface/g
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,
