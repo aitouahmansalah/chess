@@ -1,0 +1,59 @@
+
+<div class="w3-bar w3-black">
+  <!-- <button class="w3-bar-item w3-button" [ngClass]="{'active': opendTab==='game'}" (click)="changeTab('game')">
+    <span class="material-symbols-outlined">
+    timer
+    </span>
+  </button> -->
+</div>
+
+<div id="game" class="w3-container city" >
+  <div class="container">
+    <div class="pgn-table">
+      <table>
+        <tbody>
+          <tr *ngFor="let move of pgn; let i = index">
+            <th>{{ i + 1 }}.</th>
+            <td [ngClass]=" {'active' :((  calculateAbsDifference(index ,i) ) && color?.toString() === 'White')}">{{ move.whiteMove }}</td>
+            <td [ngClass]=" {'active' :(( calculateAbsDifference(index ,i) ) && color?.toString() === 'Black')}">{{ move.blackMove }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pgn-actions">
+      <table>
+        <tbody>
+          <tr>
+            <td></td>
+            <td>
+              <span class="material-symbols-outlined icon">
+                share
+              </span>
+            </td>
+            <td class="spacer"></td>
+            <td>
+              <span class="material-symbols-outlined icon flag" >
+                flag
+              </span>
+            </td>
+            <td>
+              <span class="material-symbols-outlined icon" (click)="back()">
+              arrow_back_ios
+              </span>
+            </td>
+            <td>
+              <span class="material-symbols-outlined icon" (click)="forward()">
+                arrow_forward_ios
+              </span>
+            </td>
+    
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+  
+</div>
+
+

@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       
-      <tr *ngFor="let game of games">
+      <tr *ngFor="let game of games" [routerLink]="['/game-preview',game.id]">
         <td>
           <div class="name-and-square-color">
             <span class="material-symbols-outlined">

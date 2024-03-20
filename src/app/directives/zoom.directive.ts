@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-input-rename */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Injectable } from '@angular/core';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 
@@ -19,12 +18,10 @@ import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class OnlineGameService {
-
   gameStarted : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
 
   gameEnded : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
@@ -39,9 +36,9 @@ export class OnlineGameService {
 
   playerColor !: Colors;
 
-  index  = new BehaviorSubject<number>(0);
+  index = new BehaviorSubject<number>(0);
 
-   gameStateSubject = new BehaviorSubject<GameState>({
+  gameStateSubject = new BehaviorSubject<GameState>({
     board: boardInitialPosition,
     active: Colors.White,
     history: [{
@@ -59,17 +56,8 @@ export class OnlineGameService {
   constructor(private dialog: Dialog,private socket:SocketService,private auth:AuthService,private http:HttpClient) {
 
     this.socket.onjoinedRoom().subscribe(obj =>{
+       this.gameStarted.next(true) ;
        this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
-       console.log(obj.player)
-       this.socket.emitUser(this.auth.user.username);
-    });
-
-    this.socket.onUser().subscribe(username => {
-       this.auth.getUserFromName(username).subscribe(user => {
-        if(user.id != this.auth.user.id)
-        this.opposetUser = user ;
-        this.gameStarted.next(true);
-       })
     });
 
     this.socket.onDesconnect().subscribe(des => {
@@ -154,7 +142,7 @@ export class OnlineGameService {
   get gameEnded$(): Observable<(boolean|undefined)> {
     return this.gameStateSubject.asObservable()
       .pipe(
-        map(gameState => gameState.gameEnded)
+        map(gameState => gameState.gameEnded),
       );
   }
 

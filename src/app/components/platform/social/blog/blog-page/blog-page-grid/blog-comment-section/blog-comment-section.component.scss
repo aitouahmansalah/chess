@@ -3,8 +3,111 @@
   border-radius: 8px;
   background-color: rgb(38,37,34);
   margin-bottom: 11px;
-  .title{
-    font-size: 26px;
-    margin: 0;
+  box-sizing: border-box;
+  .top{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .title{
+      font-size: 17px;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+    .sort{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: smaller;
+    }
+
+  }
+  .comment-input {
+    margin-top: 15px;
+    width: 100%;
+    textarea{
+      box-sizing: border-box;
+      width: 100%;
+      resize: vertical;
+      outline: none;
+      border-radius: 8px;
+      padding: 10px ;
+      color: white;
+      background-color: rgb(60,59,57);
+    }
+    button{
+      background-color: #4CAF50 !important;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 0px;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100px;
+      font-weight: bold;
+      &:hover{
+        background-color: #45a049 !important;
+      }
+    }
+  }
+
+  .comments{
+    width: 100%;
+    box-sizing: border-box;
+    .comment{
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      border-bottom: hsla(0,0%,100%,.1) 1px solid;
+      border-top: hsla(0,0%,100%,.1) 1px solid;
+      padding: 15px 0;
+      .profile-image-container{
+        
+        width: 50px;
+        height: 50px;
+        box-sizing: border-box;
+        margin: 0;
+        margin-right: 17px;
+        padding: 0;
+        img{
+          width: 50px;
+        }
+      }
+      .username-and-comment-container{
+        p{
+          margin: 0;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+        }
+        p.username{
+          font-weight: 900px;
+          padding-bottom: 5px;
+        }
+        p.comment-text{
+          font-weight: 400;
+          padding-bottom: 5px;
+        }
+        .like{
+          font-weight: 400;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          line-height: 15px;
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+          span{
+            font-size: 15px;
+            padding-right: 7px;
+            cursor: pointer;
+            &:active{
+              color: blue;
+            }
+          }
+        }
+      }
+    }
+    
   }
 }
