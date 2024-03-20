@@ -38,6 +38,9 @@ import { BlogPageGridComponent } from './components/platform/social/blog/blog-pa
 import { BlogPostBoxComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-post-box/blog-post-box.component';
 import { BlogCommentSectionComponent } from './components/platform/social/blog/blog-page/blog-page-grid/blog-comment-section/blog-comment-section.component';
 import { ZoomDirective } from './directives/zoom.directive';
+import { CreateBlogPageComponent } from './components/platform/social/blog/create-blog-page/create-blog-page.component';
+import { GamePreviewComponent } from './components/platform/game-interface/game-preview/game-preview.component';
+import { GamePreviewTabsComponent } from './components/platform/game-interface/game-preview/game-preview-tabs/game-preview-tabs.component';
 
 @NgModule({
   imports: [
@@ -80,6 +83,9 @@ import { ZoomDirective } from './directives/zoom.directive';
     BlogPostBoxComponent,
     BlogCommentSectionComponent,
     ZoomDirective,
+    CreateBlogPageComponent,
+    GamePreviewComponent,
+    GamePreviewTabsComponent,
   ],
   bootstrap: [
     AppComponent,
