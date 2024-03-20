@@ -40,14 +40,18 @@ ngOnInit(): void {
   back(){
     
     const index = this.gameService.index.value -1 ;
-    if(  index >= 0)
+    if(  index >= 0){
     this.gameService.index.next(index);
+    this.gameService.playMoveSound();
+    }
   }
 
   forward(){
     const index = this.gameService.index.value + 1;
-    if(this.gameService.gameStateSubject.value.history.length > index)
+    if(this.gameService.gameStateSubject.value.history.length > index){
     this.gameService.index.next(index);
+    this.gameService.playMoveSound();
+    }
   }
 
   calculateAbsDifference(index: number, i: number): boolean {
