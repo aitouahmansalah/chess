@@ -17,6 +17,7 @@ import { SocketService } from './socket.service';
 import { EndgameDialogComponent } from '../components/endgame-dialog/endgame-dialog.component';
 import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -31,6 +32,8 @@ export class OnlineGameService {
   pgn : {whiteMove:string,blackMove:string}[] = [];
 
   opposetUser !: User ;
+
+  color : Colors = Colors.White
 
   checkDialog !: DialogRef<unknown, EndgameDialogComponent>;
 
@@ -53,7 +56,7 @@ export class OnlineGameService {
     piecesTakenByBlack: [],
   });
 
-  constructor(private dialog: Dialog,private socket:SocketService,private auth:AuthService) {
+  constructor(private dialog: Dialog,private socket:SocketService,private auth:AuthService,private http:HttpClient) {
 
     this.socket.onjoinedRoom().subscribe(obj =>{
        this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
@@ -98,6 +101,7 @@ export class OnlineGameService {
       if(updatedGameState.gameEnded) {this.gameended();console.log("test11")};
       this.historyToPgn(updatedGameState.history);
       this.index.next(updatedGameState.history.length -1 );
+     // this.playMoveSound();
     });
   
     this.index.subscribe(index => {
@@ -105,6 +109,15 @@ export class OnlineGameService {
       const game = {...this.gameStateSubject.value,board}
       this.gameStateSubject.next(game);
     })
+
+    this.activeColor$.subscribe(color => {
+      if(color != this.color){
+        this.playMoveSound();
+        this.color = color;
+      }
+    })
+
+    
   
   }
 
@@ -271,6 +284,7 @@ export class OnlineGameService {
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     });
     
+    
       this.index.next(history.length - 1);
       this.historyToPgn(history);
    this.isCheckmate()
@@ -298,6 +312,7 @@ export class OnlineGameService {
         winnerBy
       },
     })
+    this.saveGame();
   }
 
   gameended(){
@@ -310,6 +325,7 @@ export class OnlineGameService {
         winnerBy
       },
     })
+    
   }
 
   isCheckmate() {
@@ -430,6 +446,43 @@ export class OnlineGameService {
     }
   }
   
+
+  playMoveSound() {
+    const audio = new Audio();
+    audio.src = 'assets/sounds/play.mp3'; 
+    audio.load();
+    audio.play();
+  }
+
+  playMessageSound() {
+    const audio = new Audio();
+    audio.src = 'assets/sounds/message.mp3'; 
+    audio.load();
+    audio.play();
+  }
   
+
+  saveGame(){
+    const winnerId = this.gameStateSubject.value.winner == this.playerColor ? this.auth.user.id : this.opposetUser.id;
+    const loserId = this.gameStateSubject.value.winner != this.playerColor ? this.auth.user.id : this.opposetUser.id;
+    const moves = this.gameStateSubject.value.history.length - 1 ;
+    const gameState = this.MapToObject(this.gameStateSubject.value);
+    this.http.post('http://localhost:3333/api/game/', {winnerId,loserId,moves,gameState}).subscribe(game =>{
+      console.log(game);
+    })
+  }
+
+  MapToObject(gameState:GameState){
+    const boardObject: { [key: number]: [Pieces, Colors] } = Object.fromEntries(gameState.board);
+    
+    const state: { [key: number]: string } = Object.fromEntries(
+      gameState.history.map((entry, index) => [index, JSON.stringify(Array.from(entry.state.entries()))])
+    );
+    return {state,boardObject,gameState};
+  }
+
+  getPlayerGames(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:3333/api/game/user/${id}`);
+  }
 
 }

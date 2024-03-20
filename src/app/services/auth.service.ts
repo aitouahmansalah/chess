@@ -72,6 +72,7 @@ export class AuthService {
     return this.http.get<User>(`${this.apiUrl}/users/${name}`);
   }
 
+
 }
   
 

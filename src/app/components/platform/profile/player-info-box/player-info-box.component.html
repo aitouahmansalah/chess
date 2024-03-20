@@ -1,22 +1,25 @@
-<div class="box">
+<div class="box" *ngIf="user">
   <table>
     <tbody>
       <tr>
         <td>
           <div class="profile-picture-container">
-            <img src="../../../../../assets/profile/profile.png" class="profile-picture">
-            <div class="profile-picture-modifier">
+            <img src="../../../../../assets/profile/profile.png" class="profile-picture" >
+            
+            <div class="profile-picture-modifier" (click)="fileInput.click()" *ngIf="isMe">
               <span class="material-symbols-outlined">
                 photo_camera
               </span>
               Change
+              <input type="file" #fileInput style="display: none;" accept="image/*" (change)="onFileSelected($event)" >
             </div>
+            
           </div>
 
         </td>
         <td rowspan="3" class="full-width">
           <div class="grid-container">
-            <p class="grid-item user-name">Firadi04</p>
+            <p class="grid-item user-name">{{ user.username }}</p>
             <div class="icons-bar">
 
               <div class="icon-and-text grid-item">
@@ -30,13 +33,13 @@
                 <span class="material-symbols-outlined icon">
                   chess
                 </span>
-                Dec 18, 2023
+                {{ user.createdAt | date: 'dd MMMM yyyy' }}
               </div>
               <div class="icon-and-text grid-item">
                 <span class="material-symbols-outlined icon">
                   groups
                 </span>
-                45
+                {{ user.followers?.length }}
               </div>
 
             </div>

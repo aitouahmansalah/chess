@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
 import { Socket } from 'socket.io-client';
+import { OnlineBoardComponent } from 'src/app/components/online-board/online-board.component';
 import { User } from 'src/app/models/user.model';
+import { OnlineGameService } from 'src/app/services/online-game.service';
 import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
@@ -12,10 +14,11 @@ import { SocketService } from 'src/app/services/socket.service';
 export class PanelTabsComponent {
   opendTab:string = 'game';
   messages : {message : string , user : User , date : Date}[] = [];
-  constructor(private socket : SocketService) {
+  constructor(private socket : SocketService,private gameService:OnlineGameService) {
     this.socket.onmessage().subscribe(mes => {
       if (!this.messages.find(msg => msg.message === mes.message && msg.date === mes.date)) {
         this.messages.push(mes);
+        this.gameService.playMessageSound();
       }
     });
   }

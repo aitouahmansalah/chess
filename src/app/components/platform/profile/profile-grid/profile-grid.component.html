@@ -1,7 +1,7 @@
 <div class="container">
   <div class="main">
-    <jv-player-info-box class="mb-15"></jv-player-info-box>
-    <jv-games-list></jv-games-list>
+    <jv-player-info-box class="mb-15" [user]="user" [isMe]="isMe"></jv-player-info-box>
+    <jv-games-list [user]="user"></jv-games-list >
   </div>
   <div class="side">
     test

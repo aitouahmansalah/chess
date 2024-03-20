@@ -14,19 +14,19 @@
     </thead>
     <tbody>
       
-      <tr>
+      <tr *ngFor="let game of games">
         <td>
           <div class="name-and-square-color">
             <span class="material-symbols-outlined">
               crop_square
             </span>
-            el paccino
+            {{ game.winner.username }}
           </div>
           <div class="name-and-square-color">
             <span class="material-symbols-outlined black">
               crop_square
               </span>
-            aitouahmane
+            {{ game.loser.username }}
           </div>
         </td>
         <td>
@@ -37,11 +37,11 @@
           <div>1</div>
           <div>0</div>
         </td>
-        <td class="text-center">19</td>
-        <td class="text-center">14/05/2024</td>
+        <td class="text-center">{{ game.moves }}</td>
+        <td class="text-center">{{ game.createdAt | date: 'dd MMMM yyyy' }}</td>
       </tr>
 
-      <tr>
+      <!-- <tr>
         <td>
           <div class="name-and-square-color">
             <span class="material-symbols-outlined">
@@ -118,7 +118,7 @@
         </td>
         <td class="text-center">19</td>
         <td class="text-center">14/05/2024</td>
-      </tr> 
+      </tr>  -->
     </tbody>
   </table>
 </div>

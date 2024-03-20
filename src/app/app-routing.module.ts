@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'game-online', component: GameOnlineComponent,canActivate:[AuthGuard] },
-  { path: 'profile/:id', component: ProfileComponent,canActivate:[AuthGuard] },
+  { path: 'profile/:username', component: ProfileComponent },
   { path: 'blog', component: BlogComponent ,canActivate:[AuthGuard]},
   { path: 'blog/:user/:post', component: BlogPageComponent,canActivate:[AuthGuard] },
 
