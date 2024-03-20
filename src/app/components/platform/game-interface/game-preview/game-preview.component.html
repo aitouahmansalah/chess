@@ -2,8 +2,126 @@
 <div class="container">
   <jv-sidebar class="app-sidebar"></jv-sidebar>
   
-  <div class="main-content" >
-    <jv-preview-bord></jv-preview-bord>
+  <div class="main-content" *ngIf="opposetUser">
+    <div>
+      <table>
+        <tbody>
+          <tr><td class="player-info">
+            <div>
+              <table>
+                <tbody>
+                  <tr>
+                    <td rowspan="2"><img src="../../../../../../assets/profile/profile.png" alt="" class="play-online-icon"></td>
+                    <td class="">{{opposetUser.username}}</td>
+                  </tr>
+                  <tr>
+                    <td class="">
+                     <span *ngIf="playeIsWhite"> <span  *ngFor="let piece of piecesTakenByBlack" [ngSwitch]="piece.toString()">
+                        <ng-container *ngSwitchCase="'Pawn'">
+                          ♙
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Queen'">
+                          ♕
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Bishop'">
+                          ♗
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Knight'">
+                          ♘
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Rook'">
+                          ♖
+                        </ng-container>
+                      </span></span>
+    
+                      <span *ngIf="!playeIsWhite"><span *ngFor="let piece of piecesTakenByWhite" [ngSwitch]="piece.toString()">
+                        <ng-container *ngSwitchCase="'Pawn'">
+                          ♙
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Queen'">
+                          ♕
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Bishop'">
+                          ♗
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Knight'">
+                          ♘
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Rook'">
+                          ♖
+                        </ng-container>
+                      </span></span>
+                      <span *ngIf="winnerByPoints === opisatePlayerColor.toString()">
+                        + {{ pointsDiffrence }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td></tr>
+    
+          <tr class="board"><jv-preview-bord></jv-preview-bord></tr>
+    
+          <tr><td class="player-info2">
+            <div>
+              <table>
+                <tbody>
+                  <tr>
+                    <td rowspan="2"><img src="../../../../../../assets/profile/profile.png" alt="" class="play-online-icon"></td>
+                    <td class=""> {{ user.username}}</td>
+                  </tr>
+                  <tr>
+                    <td class="">
+                      <span *ngIf=" !playeIsWhite"> <span  *ngFor="let piece of piecesTakenByBlack" [ngSwitch]="piece.toString()">
+                        <ng-container *ngSwitchCase="'Pawn'">
+                          ♙
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Queen'">
+                          ♕
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Bishop'">
+                          ♗
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Knight'">
+                          ♘
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Rook'">
+                          ♖
+                        </ng-container>
+                      </span></span>
+    
+                      <span *ngIf=" playeIsWhite"><span *ngFor="let piece of piecesTakenByWhite" [ngSwitch]="piece.toString()">
+                        <ng-container *ngSwitchCase="'Pawn'">
+                          ♙
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Queen'">
+                          ♕
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Bishop'">
+                          ♗
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Knight'">
+                          ♘
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Rook'">
+                          ♖
+                        </ng-container>
+                      </span></span>
+                      <span *ngIf="winnerByPoints === playerColor.toString()">
+                        + {{ pointsDiffrence }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+    
   </div>
   <div class="panel-tabs-container" >
     <jv-game-preview-tabs></jv-game-preview-tabs>

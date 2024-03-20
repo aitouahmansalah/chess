@@ -14,6 +14,7 @@ import { boardInitialPosition, squareNumber } from '../utils/board';
 import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,12 @@ export class PreviewService {
   index = new BehaviorSubject<number>(0);
 
   pgn : {whiteMove:string,blackMove:string}[] = [];
+
+  user!:User
+
+  oppostPlayer!:User;
+
+  started = new BehaviorSubject<Boolean>(false);
 
    gameStateSubject = new BehaviorSubject<GameState>({
     board: boardInitialPosition,
@@ -98,7 +105,7 @@ export class PreviewService {
   getGame(id:string){
     this.http.get('http://localhost:3333/api/game/'+id).subscribe((game:any) => {
       const gameState = game.gameState
-      console.log(game);
+      console.log(game.winner);
       const boardEntries: [number, [Pieces, Colors]][] = Object.entries(gameState.boardObject)
         .map(([key, value]): [number, [Pieces, Colors]] => [parseInt(key), value as [Pieces, Colors]]);
       const board = new Map(boardEntries);
@@ -120,6 +127,12 @@ export class PreviewService {
     console.log(updatedGameState)
     this.historyToPgn(updatedGameState.history);
       this.index.next(updatedGameState.history.length -1 );
+
+
+      this.user = game.winner
+      this.oppostPlayer = game.loser
+      console.log(this.oppostPlayer)
+      this.started.next(true);
   })}
 
   historyToPgn(history: HistoryMove[]) {
