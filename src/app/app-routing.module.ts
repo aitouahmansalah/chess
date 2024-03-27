@@ -18,10 +18,10 @@ const routes: Routes = [
   { path: 'login', component: SigninComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'game-online', component: GameOnlineComponent,canActivate:[AuthGuard] },
+  { path: 'game-online', component: GameOnlineComponent },
   { path: 'profile/:username', component: ProfileComponent },
-  { path: 'blog', component: BlogComponent ,canActivate:[AuthGuard]},
-  { path: 'blog/:user/:post', component: BlogPageComponent,canActivate:[AuthGuard] },
+  { path: 'blog', component: BlogComponent },
+  { path: 'blog/:user/:post', component: BlogPageComponent},
   { path: 'blog/create', component:CreateBlogPageComponent },
   { path: 'game-preview/:game-id', component:GamePreviewComponent },
 
