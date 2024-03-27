@@ -12,23 +12,21 @@ import {
 } from '../components/promote-dialog/promote-dialog.component';
 import { boardInitialPosition, rankAndFile, squareNumber } from '../utils/board';
 import { calculateLegalMoves, makeMove, promote } from '../utils/moves';
-import { SocketService } from './socket.service';
 import { EndgameDialogComponent } from '../components/endgame-dialog/endgame-dialog.component';
-import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class OnlineGameService {
+export class ComputerGameService {
+  
   gameStarted : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
 
   gameEnded : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false) ;
 
   pgn : {whiteMove:string,blackMove:string}[] = [];
-
-  opposetUser !: User ;
 
   color : Colors = Colors.White
 
@@ -53,44 +51,12 @@ export class OnlineGameService {
     piecesTakenByBlack: [],
   });
 
-  constructor(private dialog: Dialog,private socket:SocketService,private auth:AuthService,private http:HttpClient) {
+  constructor(private dialog: Dialog,private auth:AuthService,private http:HttpClient) {
 
-    this.socket.onjoinedRoom().subscribe(obj =>{
-       this.gameStarted.next(true) ;
-       this.playerColor = (obj.player == 1) ? Colors.White : Colors.Black ;
-    });
 
-    this.socket.onDesconnect().subscribe(des => {
-      this.endgame('resign');
-    })
+    this.playerColor = Colors.White;
+    this.gameStarted.next(true);
 
-    this.socket.onGameStateUpdate().subscribe(gameState => {
-      const boardEntries: [number, [Pieces, Colors]][] = Object.entries(gameState.boardObject)
-        .map(([key, value]): [number, [Pieces, Colors]] => [parseInt(key), value as [Pieces, Colors]]);
-      const board = new Map(boardEntries);
-      const updatedGameState = { ...gameState.gameState, board };
-      
-      const originalStates: Map<number, Map<number, [Pieces, Colors]>> = new Map<number, Map<number, [Pieces, Colors]>>();
-      Object.entries(gameState.state).forEach(([index, jsonString]) => {
-      if (typeof jsonString === 'string') {
-      const stateMap = new Map<number, [Pieces, Colors]>(JSON.parse(jsonString));
-      originalStates.set(parseInt(index), stateMap);
-    }
-    });
-    updatedGameState.history.forEach((entry:HistoryMove) => {
-      const index = entry.count;
-      if (originalStates.has(index)) {
-        entry.state = originalStates.get(index) as BoardMap;
-      }
-    });
-
-      console.log((originalStates));
-      this.gameStateSubject.next(updatedGameState);
-      if(updatedGameState.gameEnded) {this.gameended();console.log("test11")};
-      this.historyToPgn(updatedGameState.history);
-      this.index.next(updatedGameState.history.length -1 );
-     // this.playMoveSound();
-    });
   
     this.index.subscribe(index => {
       const board = this.gameStateSubject.value.history[index].state;
@@ -207,17 +173,7 @@ export class OnlineGameService {
               availableMoves: [],
               selectedSquare: null,
             });
-
-            this.socket.emitGameState({
-              board: newBoard,
-              active,
-              history: [...history, entry],
-              availableMoves: [],
-              selectedSquare: null,
-            });
           });
-
-          
       }
 
       const { board: newBoard, entry, capturedPiece } = makeMove(
@@ -236,8 +192,6 @@ export class OnlineGameService {
           this.gameStateSubject.value.piecesTakenByWhite?.push(capturedPiece)
         if(active === Colors.White && capturedPiece)
           this.gameStateSubject.value.piecesTakenByBlack?.push(capturedPiece)
-
-          
   
 
       availableMoves = [];
@@ -245,11 +199,9 @@ export class OnlineGameService {
     } else if (board.get(squareNum)?.[1] === active) {
       selectedSquare = { rank, file };
       availableMoves = calculateLegalMoves(board, history, rank, file);
-     
     } else {
       selectedSquare = null;
       availableMoves = [];
-      
     }
 
     this.gameStateSubject.next({
@@ -261,22 +213,11 @@ export class OnlineGameService {
       piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
       piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
     });
-  if(history[history.length-1].action)
-    this.socket.emitGameState({
-      board,
-      active,
-      history,
-      availableMoves,
-      selectedSquare,
-      piecesTakenByBlack : this.gameStateSubject.value.piecesTakenByBlack,
-      piecesTakenByWhite : this.gameStateSubject.value.piecesTakenByWhite
-    });
-    
-    
-      this.index.next(history.length - 1);
-      this.historyToPgn(history);
-   this.isCheckmate()
-  } 
+    this.isCheckmate();
+    if(!this.gameStateSubject.value.selectedSquare ){
+    console.log(this.gameStateSubject.value);
+    this.sendMove();}
+  }
 
   private checkIsPawnPromoting(board: BoardMap,
                                selectedSquareNum: number,
@@ -291,17 +232,15 @@ export class OnlineGameService {
     const gameEnded = true;
     const game = {...this.gameStateSubject.value,winner,gameEnded,winnerBy} 
     this.gameStateSubject.next(game);
-    this.socket.emitGameState(game);
     this.gameEnded.next(true);
-    if(!this.checkDialog){
+    if(!this.checkDialog)
     this.checkDialog = this.dialog.open(EndgameDialogComponent,{
       data: {
         winner,
         winnerBy
       },
     })
-    this.saveGame();
-  }
+    
   }
 
   gameended(){
@@ -451,16 +390,6 @@ export class OnlineGameService {
   }
   
 
-  saveGame(){
-    const winnerId = this.gameStateSubject.value.winner == this.playerColor ? this.auth.user.id : this.opposetUser.id;
-    const loserId = this.gameStateSubject.value.winner != this.playerColor ? this.auth.user.id : this.opposetUser.id;
-    const moves = this.gameStateSubject.value.history.length - 1 ;
-    const gameState = this.MapToObject(this.gameStateSubject.value);
-    this.http.post('http://localhost:3333/api/game/', {winnerId,loserId,moves,gameState}).subscribe(game =>{
-      console.log(game);
-    })
-  }
-
   MapToObject(gameState:GameState){
     const boardObject: { [key: number]: [Pieces, Colors] } = Object.fromEntries(gameState.board);
     
@@ -474,4 +403,128 @@ export class OnlineGameService {
     return this.http.get<any[]>(`http://localhost:3333/api/game/user/${id}`);
   }
 
+  
+  convertToFEN(gameState: GameState): string {
+    let fen = '';
+
+    for (let rank = 1; rank <= 8; rank++) {
+      let emptyCount = 0;
+      for (let file = 1; file <= 8; file++) {
+        const piece = gameState.board.get(squareNumber(rank, file));
+        console.log(squareNumber(rank, file),rank,file)
+        if (!piece) {
+          emptyCount++;
+        } else {
+          if (emptyCount > 0) {
+            fen += emptyCount;
+            emptyCount = 0;
+          }
+          fen += this.encodePiece(piece[0], piece[1]);
+        }
+      }
+      if (emptyCount > 0) {
+        fen += emptyCount;
+      }
+      if ( rank < 8) {
+        fen += '/';
+      }
+    }
+
+    
+    fen += ' b' ;
+
+    
+    fen += ' - - 0 1';
+
+    return fen;
+  }
+
+  private encodePiece(piece: Pieces, color: Colors): string {
+    const pieceMap: { [key in Pieces]: string } = {
+      [Pieces.Pawn]: 'p',
+      [Pieces.Knight]: 'n',
+      [Pieces.Bishop]: 'b',
+      [Pieces.Rook]: 'r',
+      [Pieces.Queen]: 'q',
+      [Pieces.King]: 'k',
+    };
+    return color === Colors.White ? pieceMap[piece].toUpperCase() : pieceMap[piece];
+  }
+  makeMoveFromResponse(response: any, gameState: GameState): GameState {
+    if (response.success && response.bestmove) {
+      const bestMoveString = response.bestmove.split(' ')[1]; 
+      const [fromSquare, toSquare] = this.splitMoveString(bestMoveString)!;
+      const fromsquare = this.squareNumberFromCoordinates(fromSquare)!;
+      const tosquare = this.squareNumberFromCoordinates(toSquare)!;
+      const action:boolean = !!gameState.board.get(tosquare)!;
+      const activated = rankAndFile(fromsquare)!;
+      const game = {...this.gameStateSubject.value}
+      game.board.set(tosquare,game.board.get(fromsquare)!);
+      game.board.delete(fromsquare);
+      game.active = game.active == Colors.Black ? Colors.White : Colors.Black;
+      const history:HistoryMove = {from:fromsquare,to:tosquare,action: action ? MoveActions.Capture : MoveActions.Move,state:game.board,count:game.history.length - 1};
+      game.history.push(history) ;
+      console.log(game);
+      return game;
+    } else {
+      
+      return gameState;
+    }
+  }
+
+  sendMove() {
+    const fen = this.convertToFEN(this.gameStateSubject.value);
+    this.http.get(`https://stockfish.online/api/s/v2.php?fen=${fen}&depth=15`).subscribe(res =>{
+      console.log(res);
+      this.gameStateSubject.next(this.makeMoveFromResponse(res,this.gameStateSubject.value)) ;
+    })
+  }
+
+  squareNumberFromCoordinates(coordinates: string): number | null {
+    const file = coordinates.charCodeAt(0) - 'a'.charCodeAt(0) + 1;
+    const rank = 8 - parseInt(coordinates.charAt(1)) + 1;
+    console.log(squareNumber(rank,file));
+    
+    if (file < 1 || file > 8 || rank < 1 || rank > 8) {
+        return null; 
+    }
+
+    return squareNumber(rank,file);
+}
+
+splitMoveString(moveString: string): [string, string] | null {
+  
+
+  const fromSquare = moveString.substr(0, 2); // Extract the first two characters
+  const toSquare = moveString.substr(2, 2);   // Extract the last two characters
+
+  return [fromSquare, toSquare];
+}
+
+
+async calculateMove(fen:string){
+  const url = 'https://chess-stockfish-16-api.p.rapidapi.com/chess/api';
+const options = {
+	method: 'POST',
+	headers: {
+		'content-type': 'application/x-www-form-urlencoded',
+		'X-RapidAPI-Key': '16dbe67ee5msh9692a7577fd6fbcp1ade46jsn767f1b86b9af',
+		'X-RapidAPI-Host': 'chess-stockfish-16-api.p.rapidapi.com'
+	},
+	body: new URLSearchParams({
+		fen: fen
+	})
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.text();
+  const res = JSON.parse(result);
+  console.log(res);
+  return res;
+	
+} catch (error) {
+	console.error(error);
+}
+}
 }

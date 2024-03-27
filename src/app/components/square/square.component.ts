@@ -7,6 +7,7 @@ import { Colors } from '../../models/colors.enum';
 import { Pieces } from '../../models/pieces.enum';
 import { MoveActions } from '../../models/move.model';
 import { squareNumber } from '../../utils/board';
+import { ComputerGameService } from 'src/app/services/computer-game.service';
 
 @Component({
   selector: 'jv-square',
@@ -22,12 +23,17 @@ export class SquareComponent implements OnInit {
   isSelected!: boolean;
   squareAction!: MoveActions | undefined;
 
+  playerColor!:Colors;
+
   readonly moveActionsEnum = MoveActions;
 
-  constructor(private gameService: GameService) {
+  constructor(private gameService: ComputerGameService) {
   }
 
   ngOnInit(): void {
+
+    this.playerColor = this.gameService.playerColor;
+
     const piece$ = this.gameService.getPieceInSquare$(this.rank, this.file)
       .pipe(shareReplay());
 
@@ -38,7 +44,7 @@ export class SquareComponent implements OnInit {
       piece$,
       this.gameService.activeColor$,
     ])
-      .subscribe(([square, active]) => this.isActive = square?.[1] === active);
+      .subscribe(([square, active]) => this.isActive = square?.[1] === active && square?.[1] == this.playerColor);
 
     this.gameService.selectedSquare$
       .subscribe(value => {
@@ -96,6 +102,8 @@ export class SquareComponent implements OnInit {
   }
 
   onSquareClick(): void {
+    if((this.square?.[1] == this.playerColor || this.squareAction)  )
     this.gameService.selectSquare(this.rank, this.file);
+    console.log("test")
   }
 }
