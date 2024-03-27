@@ -56,7 +56,7 @@ export class AuthService {
   getUserFromToken(token: string) {
     this.http.get<User>(this.apiUrl+'/users/token/'+token).subscribe(user => {
       this.user = user ;
-      if(user) this.router.navigate(['/'])
+      
       console.log(user);
     });
   }

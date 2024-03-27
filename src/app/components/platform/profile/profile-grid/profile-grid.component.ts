@@ -20,7 +20,7 @@ export class ProfileGridComponent implements OnInit {
       const  username = params.get('username')!;
        this.auth.getUserFromName(username).subscribe(user =>{
         this.user = user;
-        this.isMe = user.id == this.auth.user.id;
+        this.isMe = this.user.id == this.auth.user.id;
        })
     });
   }
