@@ -12,6 +12,7 @@
     li{
       text-decoration: underline;
       cursor: pointer;
+      width: fit-content;
       &:hover{
         text-decoration: none;
       }
@@ -33,6 +34,10 @@
     border-radius: 5px;
     width: 100%;
     font-weight: bold;
+    &:hover{
+      background-color: #45a049 !important;
+
+    }
   }
 
 }

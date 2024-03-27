@@ -45,6 +45,7 @@ import { GamePreviewTabsComponent } from './components/platform/game-interface/g
 import { PreviewBordComponent } from './components/preview-bord/preview-bord.component';
 import { PreviewSquareComponent } from './components/preview-square/preview-square.component';
 import { BlogListRightBoxComponent } from './components/platform/social/blog/blog-list/blog-list-right-box/blog-list-right-box.component';
+import { ProfileRightBoxComponent } from './components/platform/profile/profile-right-box/profile-right-box.component';
 
 @NgModule({
   imports: [
@@ -94,6 +95,7 @@ import { BlogListRightBoxComponent } from './components/platform/social/blog/blo
     PreviewBordComponent,
     PreviewSquareComponent,
     BlogListRightBoxComponent,
+    ProfileRightBoxComponent,
   ],
   bootstrap: [
     AppComponent,
