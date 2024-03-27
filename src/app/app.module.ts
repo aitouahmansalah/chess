@@ -44,6 +44,7 @@ import { GamePreviewComponent } from './components/platform/game-interface/game-
 import { GamePreviewTabsComponent } from './components/platform/game-interface/game-preview/game-preview-tabs/game-preview-tabs.component';
 import { PreviewBordComponent } from './components/preview-bord/preview-bord.component';
 import { PreviewSquareComponent } from './components/preview-square/preview-square.component';
+import { BlogListRightBoxComponent } from './components/platform/social/blog/blog-list/blog-list-right-box/blog-list-right-box.component';
 
 @NgModule({
   imports: [
@@ -92,6 +93,7 @@ import { PreviewSquareComponent } from './components/preview-square/preview-squa
     GamePreviewTabsComponent,
     PreviewBordComponent,
     PreviewSquareComponent,
+    BlogListRightBoxComponent,
   ],
   bootstrap: [
     AppComponent,
