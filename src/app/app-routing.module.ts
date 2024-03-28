@@ -13,6 +13,7 @@ import { AuthGuard } from './auth.guard';
 import { CreateBlogPageComponent } from './components/platform/social/blog/create-blog-page/create-blog-page.component';
 import { GamePreviewComponent } from './components/platform/game-interface/game-preview/game-preview.component';
 import { BoardComponent } from './components/board/board.component';
+import { GameVsComputerComponent } from './components/platform/game-interface/game-vs-computer/game-vs-computer.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'blog/:user/:post', component: BlogPageComponent},
   { path: 'blog/create', component:CreateBlogPageComponent },
   { path: 'game-preview/:game-id', component:GamePreviewComponent },
-  { path: 'game-computer', component:BoardComponent },
+  { path: 'game-computer', component:GameVsComputerComponent },
+
 ];
 
 @NgModule({

@@ -46,6 +46,7 @@ import { PreviewBordComponent } from './components/preview-bord/preview-bord.com
 import { PreviewSquareComponent } from './components/preview-square/preview-square.component';
 import { BlogListRightBoxComponent } from './components/platform/social/blog/blog-list/blog-list-right-box/blog-list-right-box.component';
 import { ProfileRightBoxComponent } from './components/platform/profile/profile-right-box/profile-right-box.component';
+import { GameVsComputerComponent } from './components/platform/game-interface/game-vs-computer/game-vs-computer.component';
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import { ProfileRightBoxComponent } from './components/platform/profile/profile-
     PreviewSquareComponent,
     BlogListRightBoxComponent,
     ProfileRightBoxComponent,
+    GameVsComputerComponent,
   ],
   bootstrap: [
     AppComponent,

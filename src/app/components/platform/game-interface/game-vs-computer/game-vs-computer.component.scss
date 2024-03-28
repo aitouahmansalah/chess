@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+}
+
+.app-sidebar {
+  flex: 0 0 auto;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.panel-tabs-container
+{
+  margin: 23px;
+  width: 50%;
+  max-width: 500px;
+  height: 100vh;
+  height: auto;
+  
+}
